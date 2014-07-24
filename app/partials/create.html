@@ -7,9 +7,6 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8">
-            <google-map center="map.center" zoom="map.zoom"></google-map>
-        </div>
         <div class="col-lg-4">
             <label>Itinerary</label>
             <div class="form-group">
@@ -24,6 +21,9 @@
             <div class="form-group">
                 <a ng-click="addWaypoint()">Add waypoint</a>
             </div>
+        </div>
+        <div class="col-lg-8">
+            <google-map events="map.events" center="map.center" zoom="map.zoom"></google-map>
         </div>
     </div>
     <div class="row">
