@@ -4,8 +4,9 @@
 // Declare app level module which depends on filters, and services
 angular.module('MotoNet', [
     'ngRoute',
-    'MotoNet.Controllers',
-    'MotoNet.Services'
+    'MotoNet.Directives',
+    'MotoNet.Controllers'
+
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});

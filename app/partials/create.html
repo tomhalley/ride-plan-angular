@@ -9,15 +9,24 @@
     <div class="row">
         <div class="col-lg-4">
             <label>Itinerary</label>
+            <!--Origin-->
             <div class="form-group">
-                <input type="text" class="form-control" id="start_location" placeholder="Start Location"/>
+                <google-autocomplete id="directions-origin" location="origin"></google-autocomplete>
+                <!--<input type="text" id="start_location" placeholder="Start Location"/>-->
             </div>
+
+            <!--Waypoints-->
             <div ng-repeat="waypoint in waypoints" class="form-group">
                 <input type="text" class="form-control" id="start_location" placeholder="Waypoint"/>
             </div>
+
+            <!--Destination-->
             <div class="form-group">
-                <input type="text" class="form-control" id="end_location" placeholder="Finish Location" />
+                <google-autocomplete id="directions-destination" location="destination"></google-autocomplete>
+                <!--<input type="text" class="form-control" id="end_location" placeholder="Finish Location" />-->
             </div>
+
+            <!--Add Waypoint-->
             <div class="form-group">
                 <a ng-click="addWaypoint()">Add waypoint</a>
             </div>
