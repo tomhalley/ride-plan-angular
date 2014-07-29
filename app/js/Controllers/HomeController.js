@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Controllers', ['google-maps'])
+angular.module('MotoNet.Controllers')
     .controller("HomeController", function() {
 
     });

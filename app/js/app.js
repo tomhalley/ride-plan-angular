@@ -6,7 +6,6 @@ angular.module('MotoNet', [
     'ngRoute',
     'MotoNet.Directives',
     'MotoNet.Controllers'
-
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});
@@ -14,3 +13,6 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller: 'CreateController'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
+
+angular.module("MotoNet.Controllers",   ['google-maps']);
+angular.module("MotoNet.Directives",    []);

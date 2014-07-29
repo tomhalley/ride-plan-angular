@@ -27,10 +27,6 @@ angular.module('MotoNet.Controllers')
             });
         };
 
-        updateRoute();
-
-
-
         $scope.map = {
             events: {
                 tilesloaded: function (map) {
@@ -40,10 +36,10 @@ angular.module('MotoNet.Controllers')
                 }
             },
             center: {
-                latitude: 45,
-                longitude: -73
+                latitude: 54.5,
+                longitude: -4.5
             },
-            zoom: 8
+            zoom: 5
         };
 
         $scope.waypoints = [];

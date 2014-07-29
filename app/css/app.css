@@ -9,10 +9,9 @@ body {
 }
 
 .angular-google-map-container {
-    height: 600px;
+    height: 500px;
 }
 
 .row {
-    border-top: 5px solid #ccc;
-    padding-top: 15px;
+    padding-top: 5px;
 }
