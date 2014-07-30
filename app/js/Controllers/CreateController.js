@@ -2,12 +2,22 @@
 
 angular.module('MotoNet.Controllers')
     .controller("CreateController", function($scope) {
+
+        $scope.eventName = '';
+        $scope.origin = '';
+        $scope.destination = '';
+        $scope.waypoints = [];
+        $scope.avoidTolls = false;
+        $scope.avoidHighways = false;
+        $scope.route = '';
+
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
 
         var directionsRequest = {
             origin: "",
             destination: "",
+            waypoints: [],
             travelMode: google.maps.TravelMode.DRIVING,
             transitOptions: {
                 departureTime: new Date(2014, 8, 1, 8, 0, 0),
@@ -17,14 +27,20 @@ angular.module('MotoNet.Controllers')
         };
 
         var updateRoute = function() {
+            if($scope.origin == '' || $scope.destination == '') {
+                return;
+            }
+
             directionsService.route(directionsRequest, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
+                    $scope.route = response;
                     directionsDisplay.setDirections(response);
                 } else {
                     console.log(response);
                 }
             });
         };
+
 
         $scope.map = {
             events: {
@@ -41,30 +57,64 @@ angular.module('MotoNet.Controllers')
             zoom: 5
         };
 
-        $scope.origin = '';
         $scope.$watch("origin", function() {
             directionsRequest.origin = $scope.origin;
             updateRoute();
         });
 
-        $scope.destination = '';
         $scope.$watch("destination", function() {
             directionsRequest.destination = $scope.destination;
             updateRoute();
         });
 
-        $scope.waypoints = [];
-        var waypointId = 0;
+        $scope.$watch("waypoints", function() {
+            for(var i = 0; i < $scope.waypoints.length; i++) {
+                if($scope.waypoints[i].location != '') {
+                    directionsRequest.waypoints.push({
+                        location: $scope.waypoints[i].location
+                    });
+                }
+            }
+
+            if(directionsRequest.waypoints.length > 0) {
+                updateRoute();
+            }
+        }, true);
+
+        $scope.$watch("avoidTolls", function() {
+            directionsRequest.avoidTolls = $scope.avoidTolls;
+            updateRoute();
+        });
+
+        $scope.$watch("avoidHighways", function() {
+            directionsRequest.avoidHighways = $scope.avoidHighways;
+            updateRoute();
+        });
+
         $scope.addWaypoint = function() {
             $scope.waypoints.push({
-                id: waypointId
+                location: ''
             });
-            waypointId++;
+        };
+
+        $scope.removeWaypoint = function(waypoint) {
+            $scope.waypoints.splice(
+                $scope.waypoints.indexOf(waypoint),
+                1
+            );
         };
 
         $scope.submit = function() {
-            var formData = {
-                name: $scope.eventName
-            }
+            var formObject = {
+                eventName: $scope.eventName,
+                origin: $scope.origin,
+                destination: $scope.destination,
+                waypoints: $scope.waypoints,
+                route: $scope.route,
+                avoidTolls: $scope.avoidTolls,
+                avoidHighways: $scope.avoidHighways
+            };
+
+            console.log(formObject);
         }
     });

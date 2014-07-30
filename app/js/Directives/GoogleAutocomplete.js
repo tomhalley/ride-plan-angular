@@ -5,7 +5,6 @@ angular.module('MotoNet.Directives')
         return {
             restrict: 'E',
             replace: true,
-            // transclude:true,
             scope: {
                 location: '=',
                 id: "=",
@@ -14,9 +13,9 @@ angular.module('MotoNet.Directives')
             },
             template: '<input type="text" class="form-control"/>',
             link: function ($scope, element, attrs) {
-                var autocomplete = new google.maps.places.Autocomplete(element[0], {});
-                google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                    var place = autocomplete.getPlace();
+                var autoComplete = new google.maps.places.Autocomplete(element[0], {});
+                google.maps.event.addListener(autoComplete, 'place_changed', function () {
+                    var place = autoComplete.getPlace();
                     $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
                     $scope.$apply();
                 });

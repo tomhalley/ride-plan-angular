@@ -15,3 +15,14 @@ body {
 .row {
     padding-top: 5px;
 }
+
+.form-control {
+    padding-right: 30px;
+}
+
+.form-control + .glyphicon {
+    position: absolute;
+    right: 0;
+    padding: 10px 27px;
+    cursor: pointer;
+}

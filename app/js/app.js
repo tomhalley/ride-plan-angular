@@ -14,5 +14,5 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
 
-angular.module("MotoNet.Controllers",   ['google-maps']);
+angular.module("MotoNet.Controllers",   ['google-maps', "ui.directives"]);
 angular.module("MotoNet.Directives",    []);
