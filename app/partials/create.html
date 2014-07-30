@@ -20,7 +20,7 @@
             </div>
 
             <!--Waypoints-->
-            <div ui-sortable ng-model="waypoints">
+            <div ui-sortable="{}" ng-model="waypoints">
                 <div ng-repeat="waypoint in waypoints" class="form-group row">
                     <div class="col-xs-9">
                         <google-autocomplete location="waypoint.location" placeholder="Waypoint"></google-autocomplete>

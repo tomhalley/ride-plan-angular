@@ -41,6 +41,18 @@ angular.module('MotoNet.Controllers')
             });
         };
 
+        var updateWaypoints = function() {
+            directionsRequest.waypoints = [];
+            for(var i = 0; i < $scope.waypoints.length; i++) {
+                if($scope.waypoints[i].location != '') {
+                    directionsRequest.waypoints.push({
+                        location: $scope.waypoints[i].location
+                    });
+                }
+            }
+
+            updateRoute();
+        };
 
         $scope.map = {
             events: {
@@ -57,6 +69,8 @@ angular.module('MotoNet.Controllers')
             zoom: 5
         };
 
+        $scope.sortableOptions = {};
+
         $scope.$watch("origin", function() {
             directionsRequest.origin = $scope.origin;
             updateRoute();
@@ -67,19 +81,7 @@ angular.module('MotoNet.Controllers')
             updateRoute();
         });
 
-        $scope.$watch("waypoints", function() {
-            for(var i = 0; i < $scope.waypoints.length; i++) {
-                if($scope.waypoints[i].location != '') {
-                    directionsRequest.waypoints.push({
-                        location: $scope.waypoints[i].location
-                    });
-                }
-            }
-
-            if(directionsRequest.waypoints.length > 0) {
-                updateRoute();
-            }
-        }, true);
+        $scope.$watch("waypoints", updateWaypoints, true);
 
         $scope.$watch("avoidTolls", function() {
             directionsRequest.avoidTolls = $scope.avoidTolls;
@@ -102,6 +104,7 @@ angular.module('MotoNet.Controllers')
                 $scope.waypoints.indexOf(waypoint),
                 1
             );
+            updateWaypoints();
         };
 
         $scope.submit = function() {
