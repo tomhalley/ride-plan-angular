@@ -12,7 +12,7 @@
             <!--Origin-->
             <div class="form-group row">
                 <div class="col-xs-9">
-                    <google-autocomplete id="directions-origin" location="origin"></google-autocomplete>
+                    <google-autocomplete id="directions-origin" location="origin" placeholder="Origin"></google-autocomplete>
                 </div>
                 <div class="col-xs-3">
                     <time-select></time-select>
@@ -20,14 +20,19 @@
             </div>
 
             <!--Waypoints-->
-            <div ng-repeat="waypoint in waypoints" class="form-group">
-                <google-autocomplete id="directions-destination" location="destination"></google-autocomplete>
+            <div ng-repeat="waypoint in waypoints" class="form-group row">
+                <div class="col-xs-9">
+                    <google-autocomplete id="{{ waypoint.id }}" location="destination" placeholder="Waypoint"></google-autocomplete>
+                </div>
+                <div class="col-xs-3">
+                    <time-select></time-select>
+                </div>
             </div>
 
             <!--Destination-->
             <div class="form-group row">
                 <div class="col-xs-9">
-                    <google-autocomplete id="directions-destination" location="destination"></google-autocomplete>
+                    <google-autocomplete id="directions-destination" location="destination" placeholder="Destination"></google-autocomplete>
                 </div>
                 <div class="col-xs-3">
                     <time-select></time-select>

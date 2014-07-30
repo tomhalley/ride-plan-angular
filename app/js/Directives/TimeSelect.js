@@ -6,6 +6,7 @@ angular.module("MotoNet.Directives")
             restrict: "E",
             template: '' +
                 '<select class="form-control">' +
+                    '<option selected="selected" value="null"></option>' +
                     '<option value="0">00:00</option>' +
                     '<option value="1">01:00</option>' +
                     '<option value="2">02:00</option>' +

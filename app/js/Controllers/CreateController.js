@@ -42,8 +42,6 @@ angular.module('MotoNet.Controllers')
             zoom: 5
         };
 
-        $scope.waypoints = [];
-
         $scope.origin = '';
         $scope.$watch("origin", function() {
             directionsRequest.origin = $scope.origin;
@@ -56,7 +54,12 @@ angular.module('MotoNet.Controllers')
             updateRoute();
         });
 
+        $scope.waypoints = [];
+        var waypointId = 0;
         $scope.addWaypoint = function() {
-            $scope.waypoints.push({});
+            $scope.waypoints.push({
+                id: waypointId
+            });
+            waypointId++;
         };
     });

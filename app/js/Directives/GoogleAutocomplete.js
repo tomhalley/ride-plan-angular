@@ -9,9 +9,10 @@ angular.module('MotoNet.Directives')
             scope: {
                 location: '=',
                 id: "=",
-                class: "="
+                class: "=",
+                placeholder: "="
             },
-            template: '<input type="text" class="form-control" placeholder="Origin"/>',
+            template: '<input type="text" class="form-control"/>',
             link: function ($scope, element, attrs) {
                 var autocomplete = new google.maps.places.Autocomplete(element[0], {});
                 google.maps.event.addListener(autocomplete, 'place_changed', function () {
