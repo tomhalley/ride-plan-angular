@@ -2,7 +2,6 @@
 
 angular.module('MotoNet.Controllers')
     .controller("CreateController", function($scope) {
-
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
 
@@ -62,4 +61,10 @@ angular.module('MotoNet.Controllers')
             });
             waypointId++;
         };
+
+        $scope.submit = function() {
+            var formData = {
+                name: $scope.eventName
+            }
+        }
     });
