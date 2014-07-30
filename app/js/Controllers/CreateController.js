@@ -3,6 +3,7 @@
 angular.module('MotoNet.Controllers')
     .controller("CreateController", function($scope) {
 
+        $scope.error = false;
         $scope.eventName = '';
         $scope.origin = '';
         $scope.destination = '';
@@ -10,10 +11,23 @@ angular.module('MotoNet.Controllers')
         $scope.avoidTolls = false;
         $scope.avoidHighways = false;
         $scope.route = '';
+        $scope.map = {
+            events: {
+                tilesloaded: function (map) {
+                    $scope.$apply(function () {
+                        directionsDisplay.setMap(map)
+                    });
+                }
+            },
+            center: {
+                latitude: 54.5,
+                longitude: -4.5
+            },
+            zoom: 5
+        };
 
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
-
         var directionsRequest = {
             origin: "",
             destination: "",
@@ -54,22 +68,9 @@ angular.module('MotoNet.Controllers')
             updateRoute();
         };
 
-        $scope.map = {
-            events: {
-                tilesloaded: function (map) {
-                    $scope.$apply(function () {
-                        directionsDisplay.setMap(map)
-                    });
-                }
-            },
-            center: {
-                latitude: 54.5,
-                longitude: -4.5
-            },
-            zoom: 5
-        };
+        var validateFormData = function() {
 
-        $scope.sortableOptions = {};
+        };
 
         $scope.$watch("origin", function() {
             directionsRequest.origin = $scope.origin;
@@ -94,16 +95,17 @@ angular.module('MotoNet.Controllers')
         });
 
         $scope.addWaypoint = function() {
-            $scope.waypoints.push({
-                location: ''
-            });
+            if($scope.waypoints.length < 8) {
+                $scope.waypoints.push({
+                    location: ''
+                });
+            } else {
+                console.error("Maximum 8 waypoints reached!");
+            }
         };
 
         $scope.removeWaypoint = function(waypoint) {
-            $scope.waypoints.splice(
-                $scope.waypoints.indexOf(waypoint),
-                1
-            );
+            $scope.waypoints.splice($scope.waypoints.indexOf(waypoint), 1);
             updateWaypoints();
         };
 
@@ -117,6 +119,12 @@ angular.module('MotoNet.Controllers')
                 avoidTolls: $scope.avoidTolls,
                 avoidHighways: $scope.avoidHighways
             };
+
+            var isValid = validateFormData(formObject);
+            if(!isValid) {
+                console.error("Error validating form");
+                return;
+            }
 
             console.log(formObject);
         }

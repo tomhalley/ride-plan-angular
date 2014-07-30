@@ -1,10 +1,17 @@
 <h1>Create a rideout</h1>
+
+<div class="alert alert-warning alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    <strong>Error!</strong> Maximum of 8 waypoints reached.
+</div>
+
 <form role="form">
-    <div class="row">
-        <div class="form-group col-lg-12">
-            <label for="eventName">Rideout Name</label>
-            <input type="text" class="form-control" id="eventName" ng-model="eventName" placeholder="Enter Rideout name" />
-        </div>
+    <div class="row form-group col-lg-12">
+        <label for="eventName">Rideout Name</label>
+        <input type="text" class="form-control" id="eventName" ng-model="eventName" placeholder="Enter Rideout name" />
     </div>
     <div class="row">
         <div class="col-lg-5">
@@ -64,6 +71,6 @@
         </div>
     </div>
     <div class="row">
-        <input type="button" ng-click="submit()" value="Submit"/>
+        <button type="button" class="btn btn-default" ng-click="submit()">Submit</button>
     </div>
 </form>
