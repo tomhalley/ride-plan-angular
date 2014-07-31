@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('MotoNet.Controllers')
-    .controller("CreateController", function($scope) {
+    .controller("CreateController", function($scope, ApiService) {
 
         $scope.error = false;
         $scope.eventName = '';
