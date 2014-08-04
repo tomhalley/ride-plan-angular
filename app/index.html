@@ -37,10 +37,11 @@
                     <li><a href="#find">Find</a></li>
                     <li><a href="#create">Start</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#home">Login</a></li>
-                    <li><a href="#home">Signup</a></li>
-                </ul>
+                <div ng-controller="UserController">
+                    <ul class="nav navbar-nav navbar-right" ng-hide="userLoggedIn">
+                        <li><a href="#login" ng-click="login()">Login</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -57,7 +58,8 @@
     <!-- In production use:
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
     -->
-    <script src='//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc&sensor=false&v=3.exp'></script>
+    <script src='//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJpeSIra45pbfmYOtpFkDCd3x7h-h3hT4&sensor=false&v=3.exp'></script>
+    <script src="//connect.facebook.net/en_US/sdk.js"></script>
     <script src="../bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/jquery-ui/ui/core.js"></script>
@@ -77,8 +79,10 @@
     <script src="js/Controllers/HomeController.js"></script>
     <script src="js/Controllers/CreateController.js"></script>
     <script src="js/Controllers/FindController.js"></script>
+    <script src="js/Controllers/UserController.js"></script>
     <script src="js/Directives/GoogleAutocomplete.js"></script>
     <script src="js/Directives/TimeSelect.js"></script>
     <script src="js/Services/ApiService.js"></script>
+    <script src="js/Services/FacebookAuthService.js"></script>
 </body>
 </html>
