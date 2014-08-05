@@ -38,7 +38,7 @@
                     <li><a href="#create">Start</a></li>
                 </ul>
                 <div ng-controller="UserController">
-                    <ul class="nav navbar-nav navbar-right" ng-hide="userLoggedIn">
+                    <ul class="nav navbar-nav navbar-right" ng-show="!userLoggedIn">
                         <li><a href="#login" ng-click="login()">Login</a></li>
                     </ul>
                 </div>

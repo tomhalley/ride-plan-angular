@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "name": "motonet-angular",
+  "description": "Frontend Angular project for MotoNet",
+  "version": "0.1.0",
+  "homepage": "https://bitbucket.org/tomhalley89/motonet-angular",
   "license": "MIT",
   "private": true,
   "dependencies": {
