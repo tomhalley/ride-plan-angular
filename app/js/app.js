@@ -14,11 +14,10 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/find', {templateUrl: 'partials/find.html', controller: 'FindController'});
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller: 'CreateController'});
   $routeProvider.otherwise({redirectTo: '/home'});
-}]).
-    constant("CONFIG", {
-        MOTONET_API_URL: "localhost",
-        GOOGLE_API_KEY: "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc"
-    });
+}])
+    .constant("MOTONET_API_URL", "localhost")
+    .constant("MOTONET_API_PORT", 3000)
+    .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
 
 angular.module("MotoNet.Common",        []);
 angular.module("MotoNet.Controllers",   ['google-maps', "ui.directives"]);

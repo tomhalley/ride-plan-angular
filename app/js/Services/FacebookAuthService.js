@@ -12,8 +12,4 @@ angular.module("MotoNet.Services")
                 callback(response);
             })
         };
-
-        this.signUserUp = function(callback) {
-
-        }
     });
