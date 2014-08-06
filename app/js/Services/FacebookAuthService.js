@@ -12,4 +12,17 @@ angular.module("MotoNet.Services")
                 callback(response);
             })
         };
+
+        this.login = function(callback) {
+            FB.login(function(response) {
+                callback(response);
+            }, {scope: "public_profile,email"});
+        };
+
+        this.getUserDetails = function(callback) {
+            FB.api('/me', function(response) {
+                console.log(response);
+                callback(response);
+            });
+        };
     });

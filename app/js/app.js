@@ -15,7 +15,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller: 'CreateController'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }])
-    .constant("MOTONET_API_URL", "localhost")
+    .constant("MOTONET_API_URL", "http://localhost")
     .constant("MOTONET_API_PORT", 3000)
     .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
 

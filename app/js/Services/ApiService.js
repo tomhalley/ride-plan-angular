@@ -1,7 +1,7 @@
 angular.module("MotoNet.Services")
     .service("ApiService", function(
         $http,
-        ConfigProvider,
+        $q,
         MOTONET_API_URL,
         MOTONET_API_PORT
         ) {

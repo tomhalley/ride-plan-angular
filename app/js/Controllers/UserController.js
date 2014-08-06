@@ -1,35 +1,34 @@
 angular.module("MotoNet.Controllers")
-    .controller("UserController", function($scope, $q, FacebookAuthService, ApiService) {
-        var deferred = $q.defer();
-
+    .controller("UserController", function($scope, FacebookAuthService, ApiService) {
         $scope.userLoggedIn = true;
 
-        FacebookAuthService.getLoginStatus(function(response) {
-            $scope.userLoggedIn = (response.status == "connected");
-            $scope.$apply();
+        var handleLoginResponse = function(response) {
             console.log(response);
-        });
 
-        $scope.login = function() {
-            FB.login(function(response) {
-                $scope.userLoggedIn = (response.status == "connected");
-                if(response.status == "connected") {
-                    var accessToken = response.authResponse.accessToken;
-                    var userId = response.authResponse.userID;
-                    console.log(response);
-                    var promise = ApiService.authoriseUserAgainstApi(accessToken, userId);
+            if(response.status == "connected") {
+                $scope.userLoggedIn = true;
 
-                    promise.then(function(data) {
+                FacebookAuthService.getUserDetails(function(userData) {
+                    console.log(userData);
+                    // Logic for checking we have right data
+
+                    ApiService.authoriseUserAgainstApi(
+                        response.authResponse.accessToken,
+                        response.authResponse.userID
+                    ).then(function(data) {
                         console.log(data);
                     });
-//                    deferred.promise
-//                        .then(function() {
-//                            ApiService.authoriseUserAgainstApi(accessToken, userId);
-//                        });
-////                    ApiService.authoriseUserAgainstApi()
+                });
+            } else {
+                $scope.userLoggedIn = false;
+            }
 
-                    deferred.resolve();
-                }
-            });
+            $scope.$apply();
+        };
+
+        FacebookAuthService.getLoginStatus(handleLoginResponse);
+
+        $scope.login = function () {
+            FacebookAuthService.login(handleLoginResponse);
         };
     });
