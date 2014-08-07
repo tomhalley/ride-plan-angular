@@ -8,16 +8,11 @@ angular.module("MotoNet.Controllers")
             if(response.status == "connected") {
                 $scope.userLoggedIn = true;
 
-                FacebookAuthService.getUserDetails(function(userData) {
-                    console.log(userData);
-                    // Logic for checking we have right data
-
-                    ApiService.authoriseUserAgainstApi(
-                        response.authResponse.accessToken,
-                        response.authResponse.userID
-                    ).then(function(data) {
-                        console.log(data);
-                    });
+                ApiService.authoriseUserAgainstApi(
+                    response.authResponse.accessToken,
+                    response.authResponse.userID
+                ).then(function(data) {
+                    console.log(data);
                 });
             } else {
                 $scope.userLoggedIn = false;

@@ -7,7 +7,7 @@ angular.module("MotoNet.Services")
         ) {
 
         this.authoriseUserAgainstApi = function(accessToken, userId) {
-            var url = MOTONET_API_URL + ":" + MOTONET_API_PORT + "/user/authorise";
+            var url = MOTONET_API_URL + ":" + MOTONET_API_PORT + "/user/authoriseWithFacebook";
 
             return $http.post(url,  {
                     access_token: accessToken,
