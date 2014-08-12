@@ -69,7 +69,7 @@ angular.module('MotoNet.Controllers')
         };
 
         var validateFormData = function() {
-
+            return true;
         };
 
         $scope.$watch("origin", function() {
@@ -126,6 +126,6 @@ angular.module('MotoNet.Controllers')
                 return;
             }
 
-            console.log(formObject);
+            ApiService.saveRideout(formObject);
         }
     });
