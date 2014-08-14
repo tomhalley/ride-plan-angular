@@ -10,7 +10,6 @@ angular.module('MotoNet.Controllers')
         $scope.waypoints = [];
         $scope.avoidTolls = false;
         $scope.avoidHighways = false;
-        $scope.route = '';
         $scope.map = {
             events: {
                 tilesloaded: function (map) {
@@ -47,10 +46,9 @@ angular.module('MotoNet.Controllers')
 
             directionsService.route(directionsRequest, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
-                    $scope.route = response;
                     directionsDisplay.setDirections(response);
                 } else {
-                    console.log(response);
+                    console.error(response);
                 }
             });
         };
@@ -111,14 +109,19 @@ angular.module('MotoNet.Controllers')
 
         $scope.submit = function() {
             var formObject = {
-                eventName: $scope.eventName,
+                name: $scope.eventName,
                 origin: $scope.origin,
                 destination: $scope.destination,
                 waypoints: $scope.waypoints,
-                route: $scope.route,
                 avoidTolls: $scope.avoidTolls,
                 avoidHighways: $scope.avoidHighways
             };
+
+            console.log(formObject);
+
+            //start_date_time: Date,
+            //end_date_time: Date,
+
 
             var isValid = validateFormData(formObject);
             if(!isValid) {

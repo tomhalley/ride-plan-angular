@@ -8,7 +8,7 @@ angular.module("MotoNet.Services")
                 user_id: userId
             })
             .success(function(data) {
-                sessionCookie = data;
+                sessionCookie = JSON.parse(data);
                 return data;
             })
             .error(function(data, status) {
@@ -21,7 +21,10 @@ angular.module("MotoNet.Services")
         };
 
         this.saveRideout = function(formData) {
-            return $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/', formData, {
+            return $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/',
+                {
+                    data: formData
+                }, {
                 headers: {
                     'Authorization': sessionCookie
                 }
