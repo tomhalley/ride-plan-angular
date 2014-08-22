@@ -1,15 +1,11 @@
 "use strict";
 
 angular.module('MotoNet.Controllers')
-    .controller("CreateController", function($scope, ApiService) {
+    .controller("CreateController", function($scope, $location, ApiService, EventService) {
 
-        $scope.error = false;
-        $scope.eventName = '';
-        $scope.origin = '';
-        $scope.destination = '';
-        $scope.waypoints = [];
-        $scope.avoidTolls = false;
-        $scope.avoidHighways = false;
+        /**
+         * Map Object
+         */
         $scope.map = {
             events: {
                 tilesloaded: function (map) {
@@ -25,6 +21,51 @@ angular.module('MotoNet.Controllers')
             zoom: 5
         };
 
+        /**
+         * Form Data
+         */
+        $scope.formData = {
+            error: false,
+            name: '',
+            destination: '',
+            waypoints: [],
+            avoid_tolls: false,
+            avoid_highways: false
+        };
+
+        /**
+         * Form Methods
+         */
+        $scope.methods = {
+            addWaypoint: function() {
+                if($scope.formData.waypoints.length < 8) {
+                    $scope.formData.waypoints.push({
+                        location: ''
+                    });
+                } else {
+                    console.error("Maximum 8 waypoints reached!");
+                }
+            },
+            removeWaypoint: function(waypoint) {
+                $scope.formData.waypoints.splice($scope.formData.waypoints.indexOf(waypoint), 1);
+                updateWaypoints();
+            },
+            submit: function() {
+                if(!EventService.validateFormData($scope.formData)) {
+                    console.error("Error validating form");
+                    return;
+                }
+
+                EventService.saveRideout($scope.formData)
+                    .then(function(event) {
+                        $location.path("/event/" + event.data._id);
+                    });
+            }
+        };
+
+        /**
+         * Initialise Google Maps
+         */
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var directionsService = new google.maps.DirectionsService();
         var directionsRequest = {
@@ -39,8 +80,11 @@ angular.module('MotoNet.Controllers')
             unitSystem: google.maps.UnitSystem.IMPERIAL
         };
 
+        /**
+         * Update Route Rendered on Map
+         */
         var updateRoute = function() {
-            if($scope.origin == '' || $scope.destination == '') {
+            if($scope.formData.origin == '' || $scope.formData.destination == '') {
                 return;
             }
 
@@ -53,12 +97,15 @@ angular.module('MotoNet.Controllers')
             });
         };
 
+        /**
+         * Update Route with Waypoints
+         */
         var updateWaypoints = function() {
             directionsRequest.waypoints = [];
-            for(var i = 0; i < $scope.waypoints.length; i++) {
-                if($scope.waypoints[i].location != '') {
+            for(var i = 0; i < $scope.formData.waypoints.length; i++) {
+                if($scope.formData.waypoints[i].location != '') {
                     directionsRequest.waypoints.push({
-                        location: $scope.waypoints[i].location
+                        location: $scope.formData.waypoints[i].location
                     });
                 }
             }
@@ -66,69 +113,29 @@ angular.module('MotoNet.Controllers')
             updateRoute();
         };
 
-        var validateFormData = function() {
-            return true;
-        };
-
-        $scope.$watch("origin", function() {
-            directionsRequest.origin = $scope.origin;
+        /**
+         * FormData Watches
+         */
+        $scope.$watch("formData.origin", function() {
+            directionsRequest.origin = $scope.formData.origin;
+            console.log("new origin: " + $scope.formData.origin);
             updateRoute();
         });
 
-        $scope.$watch("destination", function() {
-            directionsRequest.destination = $scope.destination;
+        $scope.$watch("formData.destination", function() {
+            directionsRequest.destination = $scope.formData.destination;
             updateRoute();
         });
 
-        $scope.$watch("waypoints", updateWaypoints, true);
+        $scope.$watch("formData.waypoints",updateWaypoints, true);
 
-        $scope.$watch("avoidTolls", function() {
-            directionsRequest.avoidTolls = $scope.avoidTolls;
+        $scope.$watch("formData.avoid_tolls", function() {
+            directionsRequest.avoidTolls = $scope.formData.avoid_tolls;
             updateRoute();
         });
 
-        $scope.$watch("avoidHighways", function() {
-            directionsRequest.avoidHighways = $scope.avoidHighways;
+        $scope.$watch("formData.avoid_highways", function() {
+            directionsRequest.avoidHighways = $scope.formData.avoid_highways;
             updateRoute();
         });
-
-        $scope.addWaypoint = function() {
-            if($scope.waypoints.length < 8) {
-                $scope.waypoints.push({
-                    location: ''
-                });
-            } else {
-                console.error("Maximum 8 waypoints reached!");
-            }
-        };
-
-        $scope.removeWaypoint = function(waypoint) {
-            $scope.waypoints.splice($scope.waypoints.indexOf(waypoint), 1);
-            updateWaypoints();
-        };
-
-        $scope.submit = function() {
-            var formObject = {
-                name: $scope.eventName,
-                origin: $scope.origin,
-                destination: $scope.destination,
-                waypoints: $scope.waypoints,
-                avoidTolls: $scope.avoidTolls,
-                avoidHighways: $scope.avoidHighways
-            };
-
-            console.log(formObject);
-
-            //start_date_time: Date,
-            //end_date_time: Date,
-
-
-            var isValid = validateFormData(formObject);
-            if(!isValid) {
-                console.error("Error validating form");
-                return;
-            }
-
-            ApiService.saveRideout(formObject);
-        }
     });

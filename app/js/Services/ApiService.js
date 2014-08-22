@@ -2,6 +2,10 @@ angular.module("MotoNet.Services")
     .service("ApiService", function($http, $q, MOTONET_API_URL, MOTONET_API_PORT) {
         var sessionCookie = null;
 
+        this.getSessionCookie = function() {
+            return sessionCookie;
+        }
+
         this.authoriseUserAgainstApi = function(accessToken, userId) {
             return $http.post(MOTONET_API_URL + ":" + MOTONET_API_PORT + "/user/authoriseWithFacebook",  {
                 access_token: accessToken,
@@ -19,21 +23,4 @@ angular.module("MotoNet.Services")
                 }
             })
         };
-
-        this.saveRideout = function(formData) {
-            return $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/',
-                {
-                    data: formData
-                }, {
-                headers: {
-                    'Authorization': sessionCookie
-                }
-            })
-            .success(function(data, status, headers, config) {
-                return data;
-            })
-            .error(function(data, status, headers, config) {
-                $q.reject("WRONG IT FAILED :( ");
-            });
-        }
     });

@@ -11,7 +11,7 @@
 <form role="form">
     <div class="row form-group col-lg-12">
         <label for="eventName">Rideout Name</label>
-        <input type="text" class="form-control" id="eventName" ng-model="eventName" placeholder="Enter Rideout name" />
+        <input type="text" class="form-control" id="formData.name" ng-model="formData.name" placeholder="Enter Rideout name" />
     </div>
     <div class="row">
         <div class="col-lg-5">
@@ -19,7 +19,7 @@
             <!--Origin-->
             <div class="form-group row">
                 <div class="col-xs-9">
-                    <google-autocomplete location="origin" placeholder="Origin"></google-autocomplete>
+                    <google-autocomplete location="formData.origin" placeholder="Origin"></google-autocomplete>
                 </div>
                 <div class="col-xs-3">
                     <time-select></time-select>
@@ -27,8 +27,8 @@
             </div>
 
             <!--Waypoints-->
-            <div ui-sortable="{}" ng-model="waypoints">
-                <div ng-repeat="waypoint in waypoints" class="form-group row">
+            <div ui-sortable="{}" ng-model="formData.waypoints">
+                <div ng-repeat="waypoint in formData.waypoints" class="form-group row">
                     <div class="col-xs-9">
                         <google-autocomplete location="waypoint.location" placeholder="Waypoint"></google-autocomplete>
                         <i class="glyphicon glyphicon-remove" ng-click="removeWaypoint(waypoint)"></i>
@@ -42,7 +42,7 @@
             <!--Destination-->
             <div class="form-group row">
                 <div class="col-xs-9">
-                    <google-autocomplete location="destination" placeholder="Destination"></google-autocomplete>
+                    <google-autocomplete location="formData.destination" placeholder="Destination"></google-autocomplete>
                 </div>
                 <div class="col-xs-3">
                     <time-select></time-select>
@@ -51,18 +51,18 @@
 
             <!--Add Waypoint-->
             <div class="form-group">
-                <a ng-click="addWaypoint()">Add waypoint</a>
+                <a ng-click="methods.addWaypoint()">Add waypoint</a>
             </div>
 
             <!--Avoid Tolls-->
             <div class="form-group">
-                <input id="avoidTolls" type="checkbox" ng-model="avoidTolls" value="avoidTolls" />
+                <input id="avoidTolls" type="checkbox" ng-model="formData.avoid_tolls" value="formData.avoid_tolls" />
                 <label for="avoidTolls">Avoid Tolls</label>
             </div>
 
             <!--Avoid Highways-->
             <div class="form-group">
-                <input id="avoidHighways" type="checkbox" ng-model="avoidHighways" value="avoidHighways" />
+                <input id="avoidHighways" type="checkbox" ng-model="formData.avoid_highways" value="formData.avoid_highways"/>
                 <label for="avoidHighways">Avoid Highways</label>
             </div>
         </div>
@@ -71,6 +71,6 @@
         </div>
     </div>
     <div class="row">
-        <button type="button" class="btn btn-default" ng-click="submit()">Submit</button>
+        <button type="button" class="btn btn-default" ng-click="methods.submit()">Submit</button>
     </div>
 </form>
