@@ -7,14 +7,14 @@ angular.module('MotoNet', [
     'MotoNet.Common',
     'MotoNet.Controllers',
     'MotoNet.Directives',
+    'MotoNet.Filters',
     'MotoNet.Services'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeController'});
-  $routeProvider.when('/find', {templateUrl: 'partials/find.html', controller: 'FindController'});
+  $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller: 'CreateController'});
   $routeProvider.when('/event/:id', {templateUrl: 'partials/event.html', controller: 'EventController'});
-  $routeProvider.otherwise({redirectTo: '/home'});
+  $routeProvider.otherwise({redirectTo: '/'});
 }])
     .constant("MOTONET_API_URL", "http://localhost")
     .constant("MOTONET_API_PORT", 3000)
@@ -23,4 +23,6 @@ config(['$routeProvider', function($routeProvider) {
 angular.module("MotoNet.Common",        []);
 angular.module("MotoNet.Controllers",   ['google-maps', "ui.directives"]);
 angular.module("MotoNet.Directives",    []);
+angular.module("MotoNet.Factories",     []);
 angular.module("MotoNet.Services",      []);
+angular.module("MotoNet.Filters",       []);

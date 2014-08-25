@@ -1,7 +1,8 @@
 "use strict";
 
 angular.module('MotoNet.Controllers')
-    .controller("CreateController", function($scope, $location, ApiService, EventService) {
+    .controller("CreateController", function($scope, $location, $window, ApiService, EventService) {
+        var center = new google.maps.LatLng(54.5, -4.5);
 
         /**
          * Map Object
@@ -10,14 +11,26 @@ angular.module('MotoNet.Controllers')
             events: {
                 tilesloaded: function (map) {
                     $scope.$apply(function () {
-                        directionsDisplay.setMap(map)
+                        directionsDisplay.setMap(map);
                     });
                 }
             },
             center: {
-                latitude: 54.5,
-                longitude: -4.5
+                latitude: center.lat(),
+                longitude: center.lng()
             },
+            options: {
+                streetViewControl: false,
+                overviewMapControl: false,
+                scaleControl: false,
+                panControl: false,
+                zoomControl: false,
+                scrollwheel: false,
+                mapTypeControl: false,
+                rotateControl: false,
+                keyboardShortcuts: false
+            },
+            draggable: false,
             zoom: 5
         };
 
@@ -91,6 +104,7 @@ angular.module('MotoNet.Controllers')
             directionsService.route(directionsRequest, function(response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
+                    center = directionsDisplay.getMap().getCenter();
                 } else {
                     console.error(response);
                 }
@@ -116,9 +130,14 @@ angular.module('MotoNet.Controllers')
         /**
          * FormData Watches
          */
+        $scope.$watch(function(){ return $window.innerWidth; }, function() {
+            if(directionsDisplay.getMap() != undefined) {
+                directionsDisplay.getMap().setCenter(center);
+            }
+        });
+
         $scope.$watch("formData.origin", function() {
             directionsRequest.origin = $scope.formData.origin;
-            console.log("new origin: " + $scope.formData.origin);
             updateRoute();
         });
 

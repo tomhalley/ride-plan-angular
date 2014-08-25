@@ -7,3 +7,10 @@
 5. a. auth token generated from acesss token and user_id and returned to front end
 5. b. auth token stored in mongo DB for any immediate requests
 5. c. long life token requested from facebook and stored in mongodb
+
+### Agile Board
+https://app.yodiz.com/home/pages/all-project.vz
+
+### Wireframes
+http://app.mockflow.com/
+

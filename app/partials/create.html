@@ -1,52 +1,42 @@
-<h1>Create a rideout</h1>
+<div>
+    <div class="nav-page-header">
+        <div class="container">
+            <h1>Create a rideout</h1>
+        </div>
+    </div>
 
-<div class="alert alert-warning alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert">
-        <span aria-hidden="true">&times;</span>
-        <span class="sr-only">Close</span>
-    </button>
-    <strong>Error!</strong> Maximum of 8 waypoints reached.
+    <google-map events="map.events" center="map.center" zoom="map.zoom" options="map.options"></google-map>
 </div>
 
-<form role="form">
-    <div class="row form-group col-lg-12">
-        <label for="eventName">Rideout Name</label>
-        <input type="text" class="form-control" id="formData.name" ng-model="formData.name" placeholder="Enter Rideout name" />
-    </div>
-    <div class="row">
-        <div class="col-lg-5">
-            <label>Itinerary</label>
+<div class="container">
+    <form role="form">
+        <div class="col-sm-6">
+            <h2>Details</h2>
+            <!-- Rideout Name -->
+            <div class="form-group">
+                <label for="eventName">Rideout Name</label>
+                <input id="eventName" type="text" class="form-control" ng-model="formData.name" placeholder="Enter Rideout name" />
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <h2>Itinery</h2>
             <!--Origin-->
-            <div class="form-group row">
-                <div class="col-xs-9">
-                    <google-autocomplete location="formData.origin" placeholder="Origin"></google-autocomplete>
-                </div>
-                <div class="col-xs-3">
-                    <time-select></time-select>
-                </div>
+            <div class="form-group">
+                <google-autocomplete location="formData.origin" placeholder="Origin"></google-autocomplete>
             </div>
 
             <!--Waypoints-->
             <div ui-sortable="{}" ng-model="formData.waypoints">
-                <div ng-repeat="waypoint in formData.waypoints" class="form-group row">
-                    <div class="col-xs-9">
-                        <google-autocomplete location="waypoint.location" placeholder="Waypoint"></google-autocomplete>
-                        <i class="glyphicon glyphicon-remove" ng-click="removeWaypoint(waypoint)"></i>
-                    </div>
-                    <div class="col-xs-3">
-                        <time-select></time-select>
-                    </div>
+                <div ng-repeat="waypoint in formData.waypoints" class="form-group">
+                    <google-autocomplete location="waypoint.location" placeholder="Waypoint"></google-autocomplete>
+                    <i class="glyphicon glyphicon-remove" ng-click="methods.removeWaypoint(waypoint)"></i>
                 </div>
             </div>
 
             <!--Destination-->
-            <div class="form-group row">
-                <div class="col-xs-9">
-                    <google-autocomplete location="formData.destination" placeholder="Destination"></google-autocomplete>
-                </div>
-                <div class="col-xs-3">
-                    <time-select></time-select>
-                </div>
+            <div class="form-group">
+                <google-autocomplete location="formData.destination" placeholder="Destination"></google-autocomplete>
             </div>
 
             <!--Add Waypoint-->
@@ -65,12 +55,8 @@
                 <input id="avoidHighways" type="checkbox" ng-model="formData.avoid_highways" value="formData.avoid_highways"/>
                 <label for="avoidHighways">Avoid Highways</label>
             </div>
+
+            <button type="button" class="btn btn-default" ng-click="methods.submit()">Submit</button>
         </div>
-        <div class="col-lg-7">
-            <google-map events="map.events" center="map.center" zoom="map.zoom"></google-map>
-        </div>
-    </div>
-    <div class="row">
-        <button type="button" class="btn btn-default" ng-click="methods.submit()">Submit</button>
-    </div>
-</form>
+    </form>
+</div>

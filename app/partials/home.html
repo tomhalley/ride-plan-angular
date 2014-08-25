@@ -1,1 +1,38 @@
-<p>Home Page</p>
+<div class="main-home-image">
+</div>
+
+<div class="container">
+    <div class="row" id="search-bar">
+        <div class="col-lg-6">
+            <div class="input-group" role="search">
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="methods.getLocation()">
+                        <span class="glyphicon glyphicon-screenshot"></span>
+                    </button>
+                </span>
+                <google-autocomplete ng-value="data.currentLocation" location="data.currentLocation" placeholder="Location"></google-autocomplete>
+                <div class="input-group-btn">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+                        {{ data.selectedDistance }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li ng-repeat="distance in data.distances"><a style="cursor: pointer" ng-click="methods.selectDistance(distance)">{{ distance }}</a></li>
+                    </ul>
+                    <button class="btn btn-default" type="button">
+                        Search
+                    </button>
+                </div>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+
+    <div class="row" ng-repeat="row in data.events | Partition: 4">
+        <div class="col-md-3" ng-repeat="event in row">
+            <div class="event-block" ng-click="methods.gotoEvent(event)">
+                <img src="#">
+                <h4>{{ event.name }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
