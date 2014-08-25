@@ -1,8 +1,19 @@
 "use strict";
 
 angular.module('MotoNet.Controllers')
-    .controller("CreateController", function($scope, $location, $window, ApiService, EventService) {
+    .controller("CreateController", function ($scope, $location, $window, ApiService, EventService) {
         var center = new google.maps.LatLng(54.5, -4.5);
+
+        /**
+         * Watches for window resize, and changes center of map to match
+         */
+        $scope.$watch(function () {
+            return $window.innerWidth;
+        }, function () {
+            if (directionsDisplay.getMap() != undefined) {
+                directionsDisplay.getMap().setCenter(center);
+            }
+        });
 
         /**
          * Map Object
@@ -40,6 +51,10 @@ angular.module('MotoNet.Controllers')
         $scope.formData = {
             error: false,
             name: '',
+            startDate: '',
+            endDate: '',
+            isPrivate: false,
+            origin: '',
             destination: '',
             waypoints: [],
             avoid_tolls: false,
@@ -50,8 +65,8 @@ angular.module('MotoNet.Controllers')
          * Form Methods
          */
         $scope.methods = {
-            addWaypoint: function() {
-                if($scope.formData.waypoints.length < 8) {
+            addWaypoint: function () {
+                if ($scope.formData.waypoints.length < 8) {
                     $scope.formData.waypoints.push({
                         location: ''
                     });
@@ -59,18 +74,18 @@ angular.module('MotoNet.Controllers')
                     console.error("Maximum 8 waypoints reached!");
                 }
             },
-            removeWaypoint: function(waypoint) {
+            removeWaypoint: function (waypoint) {
                 $scope.formData.waypoints.splice($scope.formData.waypoints.indexOf(waypoint), 1);
                 updateWaypoints();
             },
-            submit: function() {
-                if(!EventService.validateFormData($scope.formData)) {
+            submit: function () {
+                if (!EventService.validateFormData($scope.formData)) {
                     console.error("Error validating form");
                     return;
                 }
 
                 EventService.saveRideout($scope.formData)
-                    .then(function(event) {
+                    .then(function (event) {
                         $location.path("/event/" + event.data._id);
                     });
             }
@@ -96,12 +111,12 @@ angular.module('MotoNet.Controllers')
         /**
          * Update Route Rendered on Map
          */
-        var updateRoute = function() {
-            if($scope.formData.origin == '' || $scope.formData.destination == '') {
+        var updateRoute = function () {
+            if ($scope.formData.origin == '' || $scope.formData.destination == '') {
                 return;
             }
 
-            directionsService.route(directionsRequest, function(response, status) {
+            directionsService.route(directionsRequest, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
                     center = directionsDisplay.getMap().getCenter();
@@ -114,10 +129,10 @@ angular.module('MotoNet.Controllers')
         /**
          * Update Route with Waypoints
          */
-        var updateWaypoints = function() {
+        var updateWaypoints = function () {
             directionsRequest.waypoints = [];
-            for(var i = 0; i < $scope.formData.waypoints.length; i++) {
-                if($scope.formData.waypoints[i].location != '') {
+            for (var i = 0; i < $scope.formData.waypoints.length; i++) {
+                if ($scope.formData.waypoints[i].location != '') {
                     directionsRequest.waypoints.push({
                         location: $scope.formData.waypoints[i].location
                     });
@@ -130,30 +145,24 @@ angular.module('MotoNet.Controllers')
         /**
          * FormData Watches
          */
-        $scope.$watch(function(){ return $window.innerWidth; }, function() {
-            if(directionsDisplay.getMap() != undefined) {
-                directionsDisplay.getMap().setCenter(center);
-            }
-        });
-
-        $scope.$watch("formData.origin", function() {
+        $scope.$watch("formData.origin", function () {
             directionsRequest.origin = $scope.formData.origin;
             updateRoute();
         });
 
-        $scope.$watch("formData.destination", function() {
+        $scope.$watch("formData.destination", function () {
             directionsRequest.destination = $scope.formData.destination;
             updateRoute();
         });
 
-        $scope.$watch("formData.waypoints",updateWaypoints, true);
+        $scope.$watch("formData.waypoints", updateWaypoints, true);
 
-        $scope.$watch("formData.avoid_tolls", function() {
+        $scope.$watch("formData.avoid_tolls", function () {
             directionsRequest.avoidTolls = $scope.formData.avoid_tolls;
             updateRoute();
         });
 
-        $scope.$watch("formData.avoid_highways", function() {
+        $scope.$watch("formData.avoid_highways", function () {
             directionsRequest.avoidHighways = $scope.formData.avoid_highways;
             updateRoute();
         });

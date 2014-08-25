@@ -12,7 +12,7 @@ angular.module('MotoNet.Directives')
                 value: "=",
                 placeholder: "="
             },
-            template: '<input type="text" class="form-control"/>',
+            template: '<input type="text"/>',
             link: function ($scope, element) {
                 var autoComplete = new google.maps.places.Autocomplete(element[0], {});
                 google.maps.event.addListener(autoComplete, 'place_changed', function () {
