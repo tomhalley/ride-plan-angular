@@ -4,20 +4,16 @@ angular.module('MotoNet.Controllers')
     .controller("EventController", function($scope, $routeParams, EventService) {
         var id = $routeParams.id;
 
-        var savedData = EventService.retrieveSavedEvent();
-        if(savedData != null) {
-            $scope.$broadcast("eventLoaded", savedData);
-        } else {
-            EventService.getRideoutById(id).then(function (data) {
+        EventService.getRideoutById(id)
+            .then(function (data) {
                 $scope.$broadcast("eventLoaded", data);
             });
-        }
 
         /**
          * Initialise page after event load
          */
         $scope.$on("eventLoaded", function(event, data) {
-            $scope.eventData = data.data;
+            $scope.eventData = data;
         });
 
         /**

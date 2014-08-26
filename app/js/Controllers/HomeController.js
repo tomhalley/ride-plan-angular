@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('MotoNet.Controllers')
-    .controller("HomeController", function ($scope, $window, $location, EventService, GeocoderService) {
+    .controller("HomeController", function ($scope, $window, $location, EventService, LocationService) {
 
         var distances = [
             "5 miles",
@@ -25,7 +25,7 @@ angular.module('MotoNet.Controllers')
             },
             getLocation: function () {
                 $window.navigator.geolocation.getCurrentPosition(function (position) {
-                    GeocoderService.reverseLatLongLookup(
+                    LocationService.reverseLatLongLookup(
                         position.coords.latitude,
                         position.coords.longitude,
                         function (result) {
@@ -44,11 +44,8 @@ angular.module('MotoNet.Controllers')
         /**
          * Initialise page
          */
-        EventService.getAllRideouts().then(function (data) {
-            $scope.$broadcast("eventsLoaded", data);
-        });
-
-        $scope.$on("eventsLoaded", function (event, data) {
-            $scope.data.events = data.data;
-        });
+        EventService.getAllRideouts()
+            .then(function (data) {
+                $scope.data.events = data;
+            });
     });
