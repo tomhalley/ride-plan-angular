@@ -2,19 +2,9 @@
 
 angular.module('MotoNet.Controllers')
     .controller("EventController", function($scope, $routeParams, EventService) {
-        var id = $routeParams.id;
-
-        EventService.getRideoutById(id)
-            .then(function (data) {
-                $scope.$broadcast("eventLoaded", data);
-            });
-
-        /**
-         * Initialise page after event load
-         */
-        $scope.$on("eventLoaded", function(event, data) {
-            $scope.eventData = data;
-        });
+        var id = $routeParams.id,
+            directionsDisplay = new google.maps.DirectionsRenderer(),
+            directionsService = new google.maps.DirectionsService();
 
         /**
          * Map Object
@@ -34,20 +24,38 @@ angular.module('MotoNet.Controllers')
             zoom: 5
         };
 
+        EventService.getRideoutById(id)
+            .then(function (data) {
+                $scope.$broadcast("eventLoaded", data);
+            });
+
         /**
-         * Initialise Google Maps
+         * Initialise page after event load
          */
-        var directionsDisplay = new google.maps.DirectionsRenderer();
-        var directionsService = new google.maps.DirectionsService();
-        var directionsRequest = {
-            origin: "",
-            destination: "",
-            waypoints: [],
-            travelMode: google.maps.TravelMode.DRIVING,
-            transitOptions: {
-                departureTime: new Date(2014, 8, 1, 8, 0, 0),
-                arrivalTime: new Date(2014, 8, 1, 18, 0, 0)
-            },
-            unitSystem: google.maps.UnitSystem.IMPERIAL
-        };
+        $scope.$on("eventLoaded", function(event, data) {
+            $scope.eventData = data;
+
+            /**
+             * Initialise Google Maps
+             */
+            var directionsRequest = {
+                origin: $scope.eventData.origin,
+                destination: $scope.eventData.destination,
+                waypoints: $scope.eventData.waypoints,
+                travelMode: google.maps.TravelMode.DRIVING,
+                transitOptions: {
+                    departureTime: new Date(2014, 8, 1, 8, 0, 0),
+                    arrivalTime: new Date(2014, 8, 1, 18, 0, 0)
+                },
+                unitSystem: google.maps.UnitSystem.IMPERIAL
+            };
+
+            directionsService.route(directionsRequest, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    console.error(response);
+                }
+            });
+        });
     });
