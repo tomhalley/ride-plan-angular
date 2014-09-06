@@ -3,25 +3,30 @@
 angular.module('MotoNet.Controllers')
     .controller("HomeController", function ($scope, $window, $location, EventService, LocationService) {
 
-        var distances = [
-            "5 miles",
-            "15 miles",
-            "25 miles",
-            "50 miles"
-        ];
+        var distances = {
+            10: "10 miles",
+            15: "15 miles",
+            25: "25 miles",
+            50: "50 miles"
+        };
 
         $scope.data = {
             distances: distances,
             currentLocation: null,
-            selectedDistance: distances[0]
+            selectedDistance: 10,
+            selectedDistanceString: distances[10]
         };
 
         /**
          * Methods
          */
         $scope.methods = {
+            gotoEvent: function(event) {
+                $location.path("/event/" + event._id);
+            },
             selectDistance: function (selectedDistance) {
                 $scope.data.selectedDistance = selectedDistance;
+                $scope.data.selectedDistanceString = distances[selectedDistance];
             },
             getLocation: function () {
                 $window.navigator.geolocation.getCurrentPosition(function (position) {
@@ -36,9 +41,6 @@ angular.module('MotoNet.Controllers')
                     );
                 });
             },
-            gotoEvent: function(event) {
-                $location.path("/event/" + event._id);
-            }
         };
 
         /**
