@@ -19,8 +19,6 @@ angular.module('MotoNet.Filters')
                     eventsInRange.push(events[i]);
                 }
             }
-            console.log(eventsInRange);
-
             return eventsInRange;
         }
     });

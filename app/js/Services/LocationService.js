@@ -41,13 +41,25 @@ angular.module("MotoNet.Services")
             }
 
             var userLatLng = stringToLatLng(userLocation);
-            var eventLatLng = stringToLatLng(event.origin);
 
-            var distance = distanceBetweenCoords(
+            // Origin
+            if(distanceBetweenCoords(
                 userLatLng,
-                eventLatLng
-            );
+                stringToLatLng(event.origin)
+            ) <= range) {
+                return true;
+            }
 
-            return distance <= range;
+            // Waypoints
+            for(var i = 0; i < event.waypoints.length; i++) {
+                if(distanceBetweenCoords(
+                    userLatLng,
+                    stringToLatLng(event.waypoints[i].location)
+                ) <= range) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     });
