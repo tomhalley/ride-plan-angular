@@ -4,7 +4,7 @@ angular.module("MotoNet.Services")
 
         this.getSessionCookie = function() {
             return sessionCookie;
-        }
+        };
 
         this.authoriseUserAgainstApi = function(accessToken, userId) {
             return $http.post(MOTONET_API_URL + ":" + MOTONET_API_PORT + "/user/authoriseWithFacebook",  {
