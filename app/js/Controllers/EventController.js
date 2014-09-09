@@ -21,6 +21,18 @@ angular.module('MotoNet.Controllers')
                 latitude: 54.5,
                 longitude: -4.5
             },
+            options: {
+                streetViewControl: false,
+                overviewMapControl: false,
+                scaleControl: false,
+                panControl: false,
+                zoomControl: false,
+                scrollwheel: false,
+                mapTypeControl: false,
+                rotateControl: false,
+                keyboardShortcuts: false
+            },
+            draggable: false,
             zoom: 5
         };
 

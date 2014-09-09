@@ -1,45 +1,34 @@
 "use strict";
 
 angular.module('MotoNet.Directives')
-    .controller("GoogleAutocompleteController", function($scope) {
+    .controller("GoogleAutocompleteController", function($scope, LocationService) {
         var autoComplete,
-            $element,
-            initialising = true;
+            $element;
 
         this.init = function(element) {
             $element = element[0];
 
             autoComplete = new google.maps.places.Autocomplete(element[0]);
-            google.maps.event.addListener(autoComplete, 'place_changed', handlePlaceChanged);
-        };
-
-        var handlePlaceChanged = function() {
-            var place = autoComplete.getPlace();
-
-            if(place !== undefined) {
-                $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-            } else {
-                getFirstPrediction($scope.search);
-            }
-        };
-
-        var getFirstPrediction = function(searchString) {
-            var service = new google.maps.places.AutocompleteService();
-            service.getQueryPredictions({ input: searchString }, function(predictions, status) {
-                if(status === google.maps.places.PlacesServiceStatus.OK)  {
-                    $($element).val(predictions[0].description);
-                } else {
-                    //Todo Throw error
+            google.maps.event.addListener(autoComplete, 'place_changed', function() {
+                var place = autoComplete.getPlace();
+                if(place.geometry !== undefined) {
+                    $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+                    $scope.$apply()
                 }
             });
         };
 
-        $scope.$watch("search", function() {
-            if(initialising === false) {
-                handlePlaceChanged();
-            }
-
-            initialising = false;
+        $scope.$on("browserFoundLocation", function(event, data) {
+            var service = new google.maps.places.AutocompleteService();
+            service.getQueryPredictions({ input: data.placeResults.formatted_address }, function(predictions, status) {
+                if(status === google.maps.places.PlacesServiceStatus.OK)  {
+                    $($element).val(predictions[0].description);
+                    $scope.location = data.position.coords.latitude + ',' + data.position.coords.longitude;
+                    $scope.$apply()
+                } else {
+                    alert("Could not find your location");
+                }
+            });
         });
     })
     .directive('googleAutocomplete', function () {
@@ -49,7 +38,6 @@ angular.module('MotoNet.Directives')
             controller: "GoogleAutocompleteController",
             scope: {
                 location: '=',
-                search: '=',
                 value: '='
             },
             template: '<input type="text"/>',

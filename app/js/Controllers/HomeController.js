@@ -2,7 +2,6 @@
 
 angular.module('MotoNet.Controllers')
     .controller("HomeController", function ($scope, $window, $location, EventService, LocationService) {
-
         var distances = {
             10: "10 miles",
             15: "15 miles",
@@ -30,12 +29,15 @@ angular.module('MotoNet.Controllers')
             },
             getLocation: function () {
                 $window.navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.data.currentLocation = position.coords.latitude + ',' + position.coords.longitude;
+
                     LocationService.reverseLatLongLookup(
                         position.coords.latitude,
                         position.coords.longitude,
                         function (result) {
-                            $scope.$apply(function () {
-                                $scope.data.searchLocation = result.formatted_address;
+                            $scope.$broadcast("browserFoundLocation", {
+                                placeResults: result,
+                                position: position
                             });
                         }
                     );

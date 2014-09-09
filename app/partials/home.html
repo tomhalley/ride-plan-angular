@@ -5,13 +5,12 @@
     <div class="row" id="search-bar">
         <div class="col-lg-6">
             <div class="input-group" role="search">
-
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="methods.getLocation()">
                         <span class="glyphicon glyphicon-screenshot"></span>
                     </button>
                 </span>
-                <google-autocomplete class="form-control" search="data.searchLocation" location="data.currentLocation" placeholder="Location"></google-autocomplete>
+                <google-autocomplete class="form-control" location="data.currentLocation" placeholder="Location"></google-autocomplete>
                 <div class="input-group-btn">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
                         {{ data.selectedDistanceString }} <span class="caret"></span>
@@ -20,11 +19,14 @@
                         <li ng-repeat="(distance, text) in data.distances"><a style="cursor: pointer" ng-click="methods.selectDistance(distance)">{{ text }}</a></li>
                     </ul>
                 </div>
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
-    </div><!-- /.row -->
+            </div>
+        </div>
+    </div>
 
-    <div class="row" ng-repeat="row in data.events | Distance: data.currentLocation: data.selectedDistance | Partition: 4">
+    <div class=row" ng-show="filtered.length == 0">
+        <p>No events could be found within {{ data.selectedDistance }} miles of {{ data.currentLocation }}</p>
+    </div>
+    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 4">
         <div class="col-md-3" ng-repeat="event in row">
             <div class="event-block" ng-click="methods.gotoEvent(event)">
                 <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
