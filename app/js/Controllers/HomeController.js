@@ -35,8 +35,7 @@ angular.module('MotoNet.Controllers')
                         position.coords.longitude,
                         function (result) {
                             $scope.$apply(function () {
-                                $scope.data.currentLocation = result.geometry.location.k + "," + result.geometry.location.B;
-                                console.log($scope.data.currentLocation);
+                                $scope.data.searchLocation = result.formatted_address;
                             });
                         }
                     );

@@ -2,18 +2,45 @@
 
 angular.module('MotoNet.Directives')
     .controller("GoogleAutocompleteController", function($scope) {
-        var autoComplete;
+        var autoComplete,
+            $element,
+            initialising = true;
+
+        this.init = function(element) {
+            $element = element[0];
+
+            autoComplete = new google.maps.places.Autocomplete(element[0]);
+            google.maps.event.addListener(autoComplete, 'place_changed', handlePlaceChanged);
+        };
 
         var handlePlaceChanged = function() {
             var place = autoComplete.getPlace();
-            $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-            $scope.$apply();
+
+            if(place !== undefined) {
+                $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+            } else {
+                getFirstPrediction($scope.search);
+            }
         };
 
-        this.init = function(element) {
-            autoComplete = new google.maps.places.Autocomplete(element[0], {});
-            google.maps.event.addListener(autoComplete, 'place_changed', handlePlaceChanged);
+        var getFirstPrediction = function(searchString) {
+            var service = new google.maps.places.AutocompleteService();
+            service.getQueryPredictions({ input: searchString }, function(predictions, status) {
+                if(status === google.maps.places.PlacesServiceStatus.OK)  {
+                    $($element).val(predictions[0].description);
+                } else {
+                    //Todo Throw error
+                }
+            });
         };
+
+        $scope.$watch("search", function() {
+            if(initialising === false) {
+                handlePlaceChanged();
+            }
+
+            initialising = false;
+        });
     })
     .directive('googleAutocomplete', function () {
         return {
@@ -21,7 +48,9 @@ angular.module('MotoNet.Directives')
             replace: true,
             controller: "GoogleAutocompleteController",
             scope: {
-                location: '='
+                location: '=',
+                search: '=',
+                value: '='
             },
             template: '<input type="text"/>',
             link: function ($scope, element, attrs, GoogleAutocompleteController) {
