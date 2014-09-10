@@ -1,4 +1,11 @@
-<div class="main-home-image">
+<div id="main-home-image">
+    <div id="blurb-background">
+        <div id="blurb" class="container">
+            <h1>MotoNet Rideout Planner</h1>
+            <p>Welcome!</p>
+            <p>Find a Rideout near you or create a Rideout to share with your friends and the community!</p>
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -23,9 +30,11 @@
             </div>
         </div>
     </div>
+</div>
 
-    <div class=row" ng-show="filtered.length == 0">
-        <p>No rideouts found within <a style="cursor: pointer; font-weight: bold;" ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a style="cursor: pointer; font-weight: bold;" ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
+<div id="events" class="container">
+    <div id="no-events" ng-show="filtered.length == 0">
+        <p>No rideouts found within <a ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
     </div>
     <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3">
         <div class="col-md-4" ng-repeat="event in row">
