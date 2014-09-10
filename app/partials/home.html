@@ -10,9 +10,10 @@
                         <span class="glyphicon glyphicon-screenshot"></span>
                     </button>
                 </span>
-                <google-autocomplete class="form-control" location="data.currentLocation" placeholder="Location"></google-autocomplete>
-                <div class="input-group-btn">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+                <google-autocomplete id="location-search" ng-changed="alert('changed!')" class="form-control" location="data.currentLocation" placeholder="Location" ng-disabled="data.isFindingLocation">
+                </google-autocomplete>
+                <div class="input-group-btn dropdown">
+                    <button id="location-range" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
                         {{ data.selectedDistanceString }} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -24,10 +25,10 @@
     </div>
 
     <div class=row" ng-show="filtered.length == 0">
-        <p>No events could be found within {{ data.selectedDistance }} miles of {{ data.currentLocation }}</p>
+        <p>No rideouts found within <a style="cursor: pointer; font-weight: bold;" ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a style="cursor: pointer; font-weight: bold;" ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
     </div>
-    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 4">
-        <div class="col-md-3" ng-repeat="event in row">
+    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3">
+        <div class="col-md-4" ng-repeat="event in row">
             <div class="event-block" ng-click="methods.gotoEvent(event)">
                 <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
                 <h4>{{ event.name }}</h4>

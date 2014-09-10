@@ -12,8 +12,10 @@ angular.module('MotoNet.Directives')
             google.maps.event.addListener(autoComplete, 'place_changed', function() {
                 var place = autoComplete.getPlace();
                 if(place.geometry !== undefined) {
-                    $scope.location = place.geometry.location.lat() + ',' + place.geometry.location.lng();
-                    $scope.$apply()
+                    $scope.locationCoords = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+                    $scope.$apply();
+
+                    $scope.$emit("locationTextChanged", locationString);
                 }
             });
         };
@@ -21,10 +23,13 @@ angular.module('MotoNet.Directives')
         $scope.$on("browserFoundLocation", function(event, data) {
             var service = new google.maps.places.AutocompleteService();
             service.getQueryPredictions({ input: data.placeResults.formatted_address }, function(predictions, status) {
-                if(status === google.maps.places.PlacesServiceStatus.OK)  {
-                    $($element).val(predictions[0].description);
-                    $scope.location = data.position.coords.latitude + ',' + data.position.coords.longitude;
-                    $scope.$apply()
+                if(status === google.maps.places.PlacesServiceStatus.OK) {
+                    var locationString = predictions[0].description;
+                    angular.element($element).val(locationString);
+                    $scope.locationCoords = data.position.coords.latitude + ',' + data.position.coords.longitude;
+                    $scope.$apply();
+
+                    $scope.$emit("locationTextChanged", locationString);
                 } else {
                     alert("Could not find your location");
                 }
@@ -37,10 +42,10 @@ angular.module('MotoNet.Directives')
             replace: true,
             controller: "GoogleAutocompleteController",
             scope: {
-                location: '=',
-                value: '='
+                locationCoords: '=location',
+                locationText: "=value"
             },
-            template: '<input type="text"/>',
+            template: '<input value="" type="text"/>',
             link: function ($scope, element, attrs, GoogleAutocompleteController) {
                 GoogleAutocompleteController.init(element);
             }

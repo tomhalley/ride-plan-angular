@@ -11,7 +11,9 @@ angular.module('MotoNet.Controllers')
 
         $scope.data = {
             distances: distances,
+            isFindingLocation: false,
             currentLocation: null,
+            currentLocationText: null,
             selectedDistance: 10,
             selectedDistanceString: distances[10]
         };
@@ -28,13 +30,14 @@ angular.module('MotoNet.Controllers')
                 $scope.data.selectedDistanceString = distances[selectedDistance];
             },
             getLocation: function () {
+                $scope.data.isFindingLocation = true;
                 $window.navigator.geolocation.getCurrentPosition(function (position) {
                     $scope.data.currentLocation = position.coords.latitude + ',' + position.coords.longitude;
-
                     LocationService.reverseLatLongLookup(
                         position.coords.latitude,
                         position.coords.longitude,
                         function (result) {
+                            $scope.data.isFindingLocation = false;
                             $scope.$broadcast("browserFoundLocation", {
                                 placeResults: result,
                                 position: position
@@ -42,8 +45,20 @@ angular.module('MotoNet.Controllers')
                         }
                     );
                 });
+            },
+            focusOnRange: function() {
+                $("#location-range").toggleClass("open");
+            },
+            focusOnSearch: function() {
+                console.log($scope.data.currentLocationText);
+                angular.element("#location-search").focus();
             }
         };
+
+        $scope.$on("locationTextChanged", function(event, string) {
+            $scope.data.currentLocationText = string;
+            $scope.$apply();
+        });
 
         /**
          * Initialise page
