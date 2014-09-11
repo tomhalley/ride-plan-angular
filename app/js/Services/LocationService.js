@@ -64,7 +64,6 @@ angular.module("MotoNet.Services")
          * @param userLocation
          * @param event
          * @param range
-         * @returns {boolean}
          */
         this.isEventInRange = function (userLocation, event, range) {
             if (userLocation == null || userLocation == '') {
@@ -74,17 +73,35 @@ angular.module("MotoNet.Services")
             var userLatLng = stringToLatLng(userLocation);
 
             // Origin
-            if (distanceBetweenCoords(userLatLng, stringToLatLng(event.origin)) <= range) {
-                return true;
+            var originDistance = distanceBetweenCoords(userLatLng, stringToLatLng(event.origin));
+            if (originDistance <= range) {
+                return originDistance;
             }
 
-            // Waypoints
-            for (var i = 0; i < event.waypoints.length; i++) {
-                if (distanceBetweenCoords(userLatLng, stringToLatLng(event.waypoints[i].location)) <= range) {
-                    return true;
-                }
+            if(range == 0) {
+                return originDistance;
             }
 
             return false;
-        }
+        };
+
+        /**
+         * Calculates the range for each event and passes it back as a property of that event
+         *
+         * @param events
+         * @param userLocation
+         */
+        this.updateEventRanges = function(events, userLocation) {
+            if(userLocation === null ) {
+                return events;
+            }
+
+            var userLatLng = stringToLatLng(userLocation);
+
+            for(var i = 0; i < events.length; ++i) {
+                var originLatLng = stringToLatLng(events[i].origin);
+                events[i].range = distanceBetweenCoords(userLatLng, originLatLng).toFixed(1);
+            }
+            return events;
+        };
     });

@@ -15,7 +15,7 @@ angular.module('MotoNet.Directives')
                     $scope.locationCoords = place.geometry.location.lat() + ',' + place.geometry.location.lng();
                     $scope.$apply();
 
-                    $scope.$emit("locationTextChanged", locationString);
+                    $scope.$emit("locationTextChanged", $scope.locationText);
                 }
             });
         };

@@ -3,6 +3,7 @@
 angular.module('MotoNet.Controllers')
     .controller("HomeController", function ($scope, $window, $location, EventService, LocationService) {
         var distances = {
+            0: "All",
             10: "10 miles",
             15: "15 miles",
             25: "25 miles",
@@ -10,12 +11,14 @@ angular.module('MotoNet.Controllers')
         };
 
         $scope.data = {
+            events: [],
+            initialising: true,
             distances: distances,
             isFindingLocation: false,
             currentLocation: null,
             currentLocationText: null,
-            selectedDistance: 10,
-            selectedDistanceString: distances[10]
+            selectedDistance: 0,
+            selectedDistanceString: distances[0]
         };
 
         /**
@@ -37,11 +40,17 @@ angular.module('MotoNet.Controllers')
                         position.coords.latitude,
                         position.coords.longitude,
                         function (result) {
-                            $scope.data.isFindingLocation = false;
                             $scope.$broadcast("browserFoundLocation", {
                                 placeResults: result,
                                 position: position
                             });
+
+                            EventService.getAllRideouts()
+                                .then(function (data) {
+                                    $scope.data.events = LocationService.updateEventRanges(data, $scope.data.currentLocation);
+                                    $scope.data.initialising = false;
+                                    $scope.data.isFindingLocation = false;
+                                });
                         }
                     );
                 });
@@ -55,16 +64,14 @@ angular.module('MotoNet.Controllers')
             }
         };
 
+        $scope.methods.getLocation();
+
+        $scope.$watch("data.currentLocation", function() {
+            $scope.data.events = LocationService.updateEventRanges($scope.data.events, $scope.data.currentLocation);
+        });
+
         $scope.$on("locationTextChanged", function(event, string) {
             $scope.data.currentLocationText = string;
             $scope.$apply();
         });
-
-        /**
-         * Initialise page
-         */
-        EventService.getAllRideouts()
-            .then(function (data) {
-                $scope.data.events = data;
-            });
     });
