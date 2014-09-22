@@ -14,6 +14,8 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'});
   $routeProvider.when('/create', {templateUrl: 'partials/create.html', controller: 'CreateController'});
   $routeProvider.when('/event/:id', {templateUrl: 'partials/event.html', controller: 'EventController'});
+  $routeProvider.when('/error', {templateUrl: 'partials/error.html', controller: 'ErrorController'});
+  $routeProvider.when('/error/:type', {templateUrl: 'partials/error.html', controller: 'ErrorController'});
   $routeProvider.otherwise({redirectTo: '/'});
 }])
     .constant("MOTONET_API_URL", "http://localhost")
