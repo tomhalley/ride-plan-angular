@@ -77,7 +77,7 @@ angular.module("MotoNet.Services")
             if(allEvents !== null) {
                 deferred.resolve(allEvents);
             } else {
-                $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/all/', {},
+                $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/', {},
                     { headers: {
                         'Authorization': ApiService.getSessionCookie()
                     }})
