@@ -1,7 +1,7 @@
 angular.module("MotoNet.Services")
     .service("FacebookAuthService", function() {
         FB.init({
-            appId      : '1478753505705619',
+            appId      : '1478417649072538',
             status     : true,
             xfbml      : true,
             version    : 'v2.0'
