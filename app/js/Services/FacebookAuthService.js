@@ -25,4 +25,10 @@ angular.module("MotoNet.Services")
                 callback(response);
             });
         };
+
+        this.logout = function(callback) {
+            FB.logout(function(response) {
+                callback();
+            })
+        }
     });

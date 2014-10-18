@@ -19,7 +19,15 @@ angular.module("MotoNet.Controllers")
 
         FacebookAuthService.getLoginStatus(handleLoginResponse);
 
-        $scope.login = function () {
-            FacebookAuthService.login(handleLoginResponse);
+        $scope.methods = {
+            login: function() {
+                FacebookAuthService.login(handleLoginResponse);
+            },
+            logout: function() {
+                FacebookAuthService.logout(function() {
+                    $scope.userLoggedIn = false;
+                    $scope.$apply();
+                });
+            }
         };
     });

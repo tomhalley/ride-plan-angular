@@ -60,7 +60,7 @@ angular.module("MotoNet.Services")
                         'Authorization': ApiService.getSessionCookie()
                     }})
                     .success(function(data) {
-                        deferred.resolve(data);
+                        deferred.resolve(data[0]);
                     })
                     .error(function(data, status) {
                         switch(status) {

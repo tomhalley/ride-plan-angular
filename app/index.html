@@ -36,8 +36,9 @@
                     <li><a href="#create">Start</a></li>
                 </ul>
                 <div ng-controller="UserController">
-                    <ul class="nav navbar-nav navbar-right" ng-show="!userLoggedIn">
-                        <li><a href="#login" ng-click="login()">Login</a></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#login" ng-click="methods.login()" ng-show="!userLoggedIn">Login</a></li>
+                        <li><a href="#logout" ng-click="methods.logout()" ng-show="userLoggedIn">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -45,6 +46,7 @@
     </div>
 
     <div ng-view></div>
+    <div id="fb-root"></div>
 
 
     <!-- Bootstrap core JavaScript
@@ -58,6 +60,8 @@
     <script src="//connect.facebook.net/en_US/sdk.js"></script>
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script src="bower_components/jquery-ui/ui/sortable.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src='bower_components/lodash/dist/lodash.underscore.min.js'></script>
     <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
