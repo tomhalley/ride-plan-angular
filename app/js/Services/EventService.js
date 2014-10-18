@@ -1,3 +1,8 @@
+"use strict";
+
+/**
+ * Service for Events
+ */
 angular.module("MotoNet.Services")
     .service("EventService", function($http, $q, MOTONET_API_URL, MOTONET_API_PORT, ApiService) {
         var allEvents = null;
@@ -8,7 +13,7 @@ angular.module("MotoNet.Services")
             }
 
             for(var i = 0; i < allEvents.length; i++) {
-                if(allEvents[i]._id == id) {
+                if(allEvents[i]._id === id) {
                     return allEvents[i];
                 }
             }
@@ -22,28 +27,32 @@ angular.module("MotoNet.Services")
         };
 
         this.saveRideout = function(formData) {
-            return $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/', { data: formData },
+            var deferred = $q.defer();
+
+            $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/', { data: formData },
                 { headers: {
                     'Authorization': ApiService.getSessionCookie()
                 }})
                 .success(function(data) {
                     allEvents.push(data);
-                    return data;
+                    deferred.resolve(allEvents);
                 })
                 .error(function(data, status) {
                     switch(status) {
                         default:
-                            $q.reject("Event could not be saved");
+                            deferred.reject("Event could not be saved");
                             break;
                     }
                 });
+
+            return deferred.promise;
         };
 
         this.getRideoutById = function(id) {
             var deferred = $q.defer();
 
             var event = searchCachedEventsById(id);
-            if(event != false) {
+            if(event !== false) {
                 deferred.resolve(event);
             } else {
                 $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/' + id, {},
@@ -95,5 +104,39 @@ angular.module("MotoNet.Services")
             }
 
             return deferred.promise;
-        }
+        };
+
+        /**
+         * Save a users RSVP choice to an event
+         *
+         * @param eventId
+         * @param rsvpBool
+         * @returns {*}
+         */
+        this.saveUserRsvp = function(eventId, rsvpBool) {
+            var deferred = $q.defer();
+
+            if(eventId === null || eventId === undefined) {
+                deferred.reject("Parameter 'eventId' was undefined");
+            } else if (rsvpBool === null || rsvpBool === undefined) {
+                deferred.reject("Parameter 'rsvpBool' was undefined");
+            } else {
+                $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/' + eventId + '/rsvp/',
+                    { rsvpBool: rsvpBool},
+                    { headers: {
+                        'Authorization': ApiService.getSessionCookie()
+                    }})
+                    .success(function(data) {
+                        deferred.resolve(data);
+                    })
+                    .error(function(data, status) {
+                        switch(status) {
+                            default: deferred.reject("RSVP failed on event");
+                                break;
+                        }
+                    });
+            }
+
+            return deferred.promise;
+        };
     });

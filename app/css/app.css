@@ -100,3 +100,10 @@ body {
 .loading {
     background: url("../img/loading.gif") no-repeat 50%;
 }
+
+/**
+ * Event Page
+ */
+.event-rsvp {
+
+}

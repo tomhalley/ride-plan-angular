@@ -6,6 +6,15 @@ angular.module('MotoNet.Controllers')
             directionsDisplay = new google.maps.DirectionsRenderer(),
             directionsService = new google.maps.DirectionsService();
 
+        $scope.methods = {
+            rsvpUpdate: function(status) {
+                EventService.saveUserRsvp(id, status)
+                    .then(function() {
+                        console.log("RSVP Status updated");
+                    });
+            }
+        };
+
         /**
          * Map Object
          */
@@ -13,7 +22,7 @@ angular.module('MotoNet.Controllers')
             events: {
                 tilesloaded: function (map) {
                     $scope.$apply(function () {
-                        directionsDisplay.setMap(map)
+                        directionsDisplay.setMap(map);
                     });
                 }
             },
@@ -45,15 +54,15 @@ angular.module('MotoNet.Controllers')
          * Initialise page after event load
          */
         $scope.$on("eventLoaded", function(event, data) {
-            $scope.eventData = data;
+            $scope.event = data;
 
             /**
              * Initialise Google Maps
              */
             var directionsRequest = {
-                origin: $scope.eventData.origin,
-                destination: $scope.eventData.destination,
-                waypoints: $scope.eventData.waypoints,
+                origin: $scope.event.origin,
+                destination: $scope.event.destination,
+                waypoints: $scope.event.waypoints,
                 travelMode: google.maps.TravelMode.DRIVING,
                 transitOptions: {
                     departureTime: new Date(2014, 8, 1, 8, 0, 0),
@@ -63,7 +72,7 @@ angular.module('MotoNet.Controllers')
             };
 
             directionsService.route(directionsRequest, function (response, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
+                if (status === google.maps.DirectionsStatus.OK) {
                     directionsDisplay.setDirections(response);
                 } else {
                     console.error(response);

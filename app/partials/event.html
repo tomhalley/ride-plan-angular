@@ -1,5 +1,29 @@
 <google-map events="map.events" center="map.center" options="map.options" zoom="map.zoom"></google-map>
 
 <div class="container">
-    <h1>{{ eventData.name }}</h1>
+    <div class="row event-description">
+        <h1>{{ event.name }}</h1>
+
+    </div>
+    <div class="row event-rsvp">
+        <div class="col-xs-8">
+            <p>27 Attending</p>
+            <p>10 Maybe Attending</p>
+        </div>
+        <div class="col-xs-4">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(2)">Join</button>
+                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(1)">Maybe</button>
+                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(0)">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row event-itinerary">
+
+    </div>
+
+    <div class="row event-comments">
+
+    </div>
 </div>
