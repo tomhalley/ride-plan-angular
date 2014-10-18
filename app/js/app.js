@@ -18,8 +18,8 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/error/:type', {templateUrl: 'partials/error.html', controller: 'ErrorController'});
   $routeProvider.otherwise({redirectTo: '/'});
 }])
-    .constant("MOTONET_API_URL", "http://localhost")
-    .constant("MOTONET_API_PORT", 3000)
+    .constant("MOTONET_API_URL", "http://ec2-54-171-73-86.eu-west-1.compute.amazonaws.com")
+    .constant("MOTONET_API_PORT", 16682)
     .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
 
 angular.module("MotoNet.Common",        []);
