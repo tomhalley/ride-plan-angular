@@ -5,10 +5,17 @@
  */
 angular.module("MotoNet.Services")
     .service("EventService", function($http, $q, MOTONET_API_URL, MOTONET_API_PORT, ApiService) {
-        var allEvents = null;
+        var allEvents = [];
+        var eventsLoaded = false;
 
+        /**
+         * Return
+         *
+         * @param id
+         * @returns {boolean|object}
+         */
         var searchCachedEventsById = function (id) {
-            if(allEvents === null) {
+            if(eventsLoaded === false) {
                 return false;
             }
 
@@ -21,11 +28,23 @@ angular.module("MotoNet.Services")
             return false;
         };
 
+        /**
+         * Validates form data before an event is submitted
+         *
+         * @param eventData
+         * @returns {boolean}
+         */
         this.validateFormData = function(eventData) {
             //@todo Add Logic for validating form data
             return true;
         };
 
+        /**
+         * Save a rideout through the API
+         *
+         * @param formData
+         * @returns {promise}
+         */
         this.saveRideout = function(formData) {
             var deferred = $q.defer();
 
@@ -35,7 +54,7 @@ angular.module("MotoNet.Services")
                 }})
                 .success(function(data) {
                     allEvents.push(data);
-                    deferred.resolve(allEvents);
+                    deferred.resolve(data);
                 })
                 .error(function(data, status) {
                     switch(status) {
@@ -48,6 +67,12 @@ angular.module("MotoNet.Services")
             return deferred.promise;
         };
 
+        /**
+         * Get single rideout by id
+         *
+         * @param id
+         * @returns {promise}
+         */
         this.getRideoutById = function(id) {
             var deferred = $q.defer();
 
@@ -78,12 +103,12 @@ angular.module("MotoNet.Services")
          * Retrieve all rideouts.
          * Checks for cached copy, then returns cached copy or ajax call
          *
-         * @returns {promise|webdriver.promise.|document.promise|Promise.promise|Q.promise|webdriver.promise|*}
+         * @returns {promise}
          */
         this.getAllRideouts = function() {
             var deferred = $q.defer();
 
-            if(allEvents !== null) {
+            if(eventsLoaded !== false) {
                 deferred.resolve(allEvents);
             } else {
                 $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/', {},
@@ -91,7 +116,10 @@ angular.module("MotoNet.Services")
                         'Authorization': ApiService.getSessionCookie()
                     }})
                     .success(function(data) {
-                        allEvents = data;
+                        for(var i = 0; i < data.length; i++) {
+                            allEvents.push(data[i]);
+                        }
+                        eventsLoaded = true;
                         deferred.resolve(data);
                     })
                     .error(function(data, status) {
@@ -111,7 +139,7 @@ angular.module("MotoNet.Services")
          *
          * @param eventId
          * @param rsvpBool
-         * @returns {*}
+         * @returns {promise}
          */
         this.saveUserRsvp = function(eventId, rsvpBool) {
             var deferred = $q.defer();

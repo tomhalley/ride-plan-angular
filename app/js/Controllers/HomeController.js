@@ -64,14 +64,17 @@ angular.module('MotoNet.Controllers')
             }
         };
 
-        $scope.methods.getLocation();
-
         $scope.$watch("data.currentLocation", function() {
-            $scope.data.events = LocationService.updateEventRanges($scope.data.events, $scope.data.currentLocation);
+            $scope.data.events = LocationService.updateEventRanges(
+                $scope.data.events,
+                $scope.data.currentLocation
+            );
         });
 
         $scope.$on("locationTextChanged", function(event, string) {
             $scope.data.currentLocationText = string;
             $scope.$apply();
         });
+
+        $scope.methods.getLocation();
     });

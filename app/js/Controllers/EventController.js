@@ -54,15 +54,15 @@ angular.module('MotoNet.Controllers')
          * Initialise page after event load
          */
         $scope.$on("eventLoaded", function(event, data) {
-            $scope.event = data;
+            $scope.data = data;
 
             /**
              * Initialise Google Maps
              */
             var directionsRequest = {
-                origin: $scope.event.origin,
-                destination: $scope.event.destination,
-                waypoints: $scope.event.waypoints,
+                origin: data.origin,
+                destination: data.destination,
+                waypoints: data.waypoints,
                 travelMode: google.maps.TravelMode.DRIVING,
                 transitOptions: {
                     departureTime: new Date(2014, 8, 1, 8, 0, 0),

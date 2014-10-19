@@ -68,7 +68,8 @@ angular.module('MotoNet.Controllers')
             addWaypoint: function () {
                 if ($scope.formData.waypoints.length < 8) {
                     $scope.formData.waypoints.push({
-                        location: ''
+                        location: '',
+                        locationText: ''
                     });
                 } else {
                     console.error("Maximum 8 waypoints reached!");
@@ -86,7 +87,7 @@ angular.module('MotoNet.Controllers')
 
                 EventService.saveRideout($scope.formData)
                     .then(function (event) {
-                        $location.path("/event/" + event.data._id);
+                        $location.path("/event/" + event._id);
                     });
             }
         };

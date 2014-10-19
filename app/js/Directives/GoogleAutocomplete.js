@@ -5,6 +5,18 @@ angular.module('MotoNet.Directives')
         var autoComplete,
             $element;
 
+        var buildAddressFromPlace = function(place) {
+            var addressParts = place.formatted_address.split(',');
+
+            for(var i = 0; i < addressParts.length; i++) {
+                if(addressParts[i] == addressParts[i + 1]) {
+                    addressParts.splice(i, 1);
+                }
+            }
+
+            addressParts.join(', ');
+        };
+
         this.init = function(element) {
             $element = element[0];
 
@@ -13,6 +25,7 @@ angular.module('MotoNet.Directives')
                 var place = autoComplete.getPlace();
                 if(place.geometry !== undefined) {
                     $scope.locationCoords = place.geometry.location.lat() + ',' + place.geometry.location.lng();
+                    $scope.locationText = buildAddressFromPlace(place);
                     $scope.$apply();
 
                     $scope.$emit("locationTextChanged", angular.element($element).val());
