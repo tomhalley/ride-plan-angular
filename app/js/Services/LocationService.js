@@ -6,7 +6,7 @@
  * Used for location based things
  */
 angular.module("MotoNet.Services")
-    .service("LocationService", function () {
+    .service("LocationService", function ($q, $window) {
 
         /**
          * Convert LatLng string to object
@@ -104,4 +104,19 @@ angular.module("MotoNet.Services")
             }
             return events;
         };
+
+        /**
+         * Returns a users location
+         *
+         * @returns {promise}
+         */
+        this.getUserLocation = function() {
+            var deferred = $q.defer();
+
+            $window.navigator.geolocation.getCurrentPosition(function (position) {
+                deferred.resolve(position);
+            });
+
+            return deferred.promise;
+        }
     });

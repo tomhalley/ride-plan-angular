@@ -105,5 +105,9 @@ body {
  * Event Page
  */
 .event-rsvp {
+    /*background-color: #ddd;*/
+}
 
+.event-range {
+    font-weight: bold;
 }

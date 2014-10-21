@@ -1,6 +1,6 @@
 angular.module("MotoNet.Controllers")
     .controller("UserController", function($scope, FacebookAuthService, ApiService) {
-        $scope.userLoggedIn = true;
+        $scope.userLoggedIn = null;
 
         var handleLoginResponse = function(response) {
             if(response.status == "connected") {

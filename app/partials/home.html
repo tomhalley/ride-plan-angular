@@ -17,7 +17,7 @@
                         <span class="glyphicon glyphicon-screenshot"></span>
                     </button>
                 </span>
-                <google-autocomplete id="location-search" ng-changed="alert('changed!')" class="form-control" location="data.currentLocation" placeholder="Location" ng-disabled="data.isFindingLocation">
+                <google-autocomplete id="location-search" class="form-control" location="data.currentLocation" placeholder="Location" ng-disabled="data.isFindingLocation">
                 </google-autocomplete>
                 <div class="input-group-btn dropdown">
                     <button id="location-range" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
@@ -36,12 +36,12 @@
     <div id="no-events" ng-show="filtered.length == 0 && data.initialising == false">
         <p>No rideouts found within <a ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
     </div>
-    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3">
+    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3 | orderBy: 'range' : false">
         <div class="col-md-4" ng-repeat="event in row">
             <div class="event-block" ng-click="methods.gotoEvent(event)">
                 <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
                 <h4>{{ event.name }}</h4>
-                <p class="event-range" ng-show="event.range != null"><b>{{ event.range}}</b> miles away</p>
+                <p class="event-range">{{ event.range }} miles away</p>
             </div>
         </div>
     </div>

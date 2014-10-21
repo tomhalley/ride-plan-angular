@@ -34,26 +34,27 @@ angular.module('MotoNet.Controllers')
             },
             getLocation: function () {
                 $scope.data.isFindingLocation = true;
-                $window.navigator.geolocation.getCurrentPosition(function (position) {
-                    $scope.data.currentLocation = position.coords.latitude + ',' + position.coords.longitude;
-                    LocationService.reverseLatLongLookup(
-                        position.coords.latitude,
-                        position.coords.longitude,
-                        function (result) {
-                            $scope.$broadcast("browserFoundLocation", {
-                                placeResults: result,
-                                position: position
-                            });
-
-                            EventService.getAllRideouts()
-                                .then(function (data) {
-                                    $scope.data.events = LocationService.updateEventRanges(data, $scope.data.currentLocation);
-                                    $scope.data.initialising = false;
-                                    $scope.data.isFindingLocation = false;
+                LocationService.getUserLocation()
+                    .then(function(position) {
+                        $scope.data.currentLocation = position.coords.latitude + ',' + position.coords.longitude;
+                        LocationService.reverseLatLongLookup(
+                            position.coords.latitude,
+                            position.coords.longitude,
+                            function (result) {
+                                $scope.$broadcast("browserFoundLocation", {
+                                    placeResults: result,
+                                    position: position
                                 });
-                        }
-                    );
-                });
+
+                                EventService.getAllRideouts()
+                                    .then(function (data) {
+                                        $scope.data.events = LocationService.updateEventRanges(data, $scope.data.currentLocation);
+                                        $scope.data.initialising = false;
+                                        $scope.data.isFindingLocation = false;
+                                    });
+                            }
+                        );
+                    });
             },
             focusOnRange: function() {
                 $("#location-range").toggleClass("open");

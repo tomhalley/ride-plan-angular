@@ -47,36 +47,29 @@ angular.module('MotoNet.Controllers')
 
         EventService.getRideoutById(id)
             .then(function (data) {
-                $scope.$broadcast("eventLoaded", data);
+                $scope.data = data;
+
+                /**
+                 * Initialise Google Maps
+                 */
+                var directionsRequest = {
+                    origin: data.origin,
+                    destination: data.destination,
+                    waypoints: data.waypoints,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    transitOptions: {
+                        departureTime: new Date(2014, 8, 1, 8, 0, 0),
+                        arrivalTime: new Date(2014, 8, 1, 18, 0, 0)
+                    },
+                    unitSystem: google.maps.UnitSystem.IMPERIAL
+                };
+
+                directionsService.route(directionsRequest, function (response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                    } else {
+                        console.error(response);
+                    }
+                });
             });
-
-        /**
-         * Initialise page after event load
-         */
-        $scope.$on("eventLoaded", function(event, data) {
-            $scope.data = data;
-
-            /**
-             * Initialise Google Maps
-             */
-            var directionsRequest = {
-                origin: data.origin,
-                destination: data.destination,
-                waypoints: data.waypoints,
-                travelMode: google.maps.TravelMode.DRIVING,
-                transitOptions: {
-                    departureTime: new Date(2014, 8, 1, 8, 0, 0),
-                    arrivalTime: new Date(2014, 8, 1, 18, 0, 0)
-                },
-                unitSystem: google.maps.UnitSystem.IMPERIAL
-            };
-
-            directionsService.route(directionsRequest, function (response, status) {
-                if (status === google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    console.error(response);
-                }
-            });
-        });
     });

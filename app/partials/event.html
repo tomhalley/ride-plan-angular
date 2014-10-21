@@ -3,16 +3,20 @@
         <h1>{{ event.name }}</h1>
 
     </div>
-    <div class="row event-rsvp">
-        <div class="col-xs-8">
+    <div class="event-rsvp row">
+        <div class="pull-left">
             <p>27 Attending</p>
             <p>10 Maybe Attending</p>
         </div>
-        <div class="col-xs-4">
+        <div class="pull-right">
             <div class="btn-group">
-                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(0)">Join</button>
+                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(0)">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Join
+                </button>
                 <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(1)">Maybe</button>
-                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(2)">No</button>
+                <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(2)">
+                    <span class="glyphicon glyphicon-thumbs-down"></span> No
+                </button>
             </div>
         </div>
     </div>
