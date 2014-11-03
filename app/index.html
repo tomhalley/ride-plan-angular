@@ -20,34 +20,9 @@
 </head>
 
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">MotoNet</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#create">Start</a></li>
-                </ul>
-                <div ng-controller="UserController">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#login" ng-click="methods.login()" ng-show="!userLoggedIn">Login</a></li>
-                        <li><a href="#logout" ng-click="methods.logout()" ng-show="userLoggedIn">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div ng-view></div>
-    <div id="fb-root"></div>
-
+    <header ui-view="header"></header>
+    <main ui-view="content"></main>
+    <footer ui-view="footer"></footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -58,6 +33,7 @@
     -->
     <script src='//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJpeSIra45pbfmYOtpFkDCd3x7h-h3hT4&sensor=false&v=3.exp'></script>
     <script src="//connect.facebook.net/en_US/sdk.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
@@ -67,6 +43,7 @@
     <script src='bower_components/angular-google-maps/dist/angular-google-maps.min.js'></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-ui/build/angular-ui.min.js"></script>
     <script src="bower_components/angular-ui/modules/directives/sortable/sortable.js"></script>
 
