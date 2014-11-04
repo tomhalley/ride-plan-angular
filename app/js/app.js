@@ -84,7 +84,7 @@ angular.module('RidePlan', [
 
 // Define module dependencies
 angular.module("RidePlan.Common",        []);
-angular.module("RidePlan.Controllers",   ['google-maps', "ui.directives"]);
+angular.module("RidePlan.Controllers",   ['google-maps', 'ui.directives', 'dialogs.main', 'ui.bootstrap']);
 angular.module("RidePlan.Directives",    []);
 angular.module("RidePlan.Factories",     []);
 angular.module("RidePlan.Services",      []);

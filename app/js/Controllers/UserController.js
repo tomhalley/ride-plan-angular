@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module("RidePlan.Controllers")
-    .controller("UserController", ['$scope', 'FacebookAuthService', 'AuthService', function($scope, FacebookAuthService, AuthService) {
+    .controller("UserController", ['$scope', 'FacebookAuthService', 'AuthService', 'dialogs', function($scope, FacebookAuthService, AuthService, dialogs) {
         $scope.userLoggedIn = null;
 
         var handleLoginResponse = function(response) {
@@ -23,7 +23,9 @@ angular.module("RidePlan.Controllers")
 
         $scope.methods = {
             login: function() {
-                FacebookAuthService.login(handleLoginResponse);
+                dialogs.create('partials/shared/login-modal.html','ModalController', $scope.data);
+
+                //FacebookAuthService.login(handleLoginResponse);
             },
             logout: function() {
                 FacebookAuthService.logout(function() {
