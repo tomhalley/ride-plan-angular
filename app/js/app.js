@@ -1,7 +1,5 @@
 'use strict';
 
-
-// Declare app level module which depends on filters, and services
 angular.module('RidePlan', [
     'ui.router',
     'RidePlan.Common',
@@ -10,6 +8,9 @@ angular.module('RidePlan', [
     'RidePlan.Filters',
     'RidePlan.Services'
 ])
+    .config(['$locationProvider', function($locationProvider) {
+        $locationProvider.html5Mode(true);
+    }])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('ride-plan', {
@@ -34,7 +35,7 @@ angular.module('RidePlan', [
                     }
                 }
             })
-            .state('ride-plan.createEvent', {
+            .state('ride-plan.create', {
                 url: '/create',
                 parent: 'ride-plan',
                 views: {
@@ -44,7 +45,7 @@ angular.module('RidePlan', [
                     }
                 }
             })
-            .state('ride-plan.eventPage', {
+            .state('ride-plan.event', {
                 url: '/event/:id',
                 views: {
                     'content@': {
@@ -86,6 +87,7 @@ angular.module('RidePlan', [
     .constant("API_PORT", 3000)
     .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
 
+// Define module dependencies
 angular.module("RidePlan.Common",        []);
 angular.module("RidePlan.Controllers",   ['google-maps', "ui.directives"]);
 angular.module("RidePlan.Directives",    []);

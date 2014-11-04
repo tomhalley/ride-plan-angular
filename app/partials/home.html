@@ -37,12 +37,10 @@
         <p>No rideouts found within <a ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
     </div>
     <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3 | orderBy: 'range' : false">
-        <div class="col-md-4" ng-repeat="event in row">
-            <div class="event-block" ng-click="methods.gotoEvent(event)">
-                <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
-                <h4>{{ event.name }}</h4>
-                <p class="event-range">{{ event.range }} miles away</p>
-            </div>
-        </div>
+        <a ui-sref="ride-plan.event({ id: event._id })" class="col-md-4 event-block" ng-repeat="event in row">
+            <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
+            <h4>{{ event.name }}</h4>
+            <p class="event-range">{{ event.range }} miles away</p>
+        </a>
     </div>
 </div>
