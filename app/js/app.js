@@ -8,9 +8,6 @@ angular.module('RidePlan', [
     'RidePlan.Filters',
     'RidePlan.Services'
 ])
-    .config(['$locationProvider', function($locationProvider) {
-        $locationProvider.html5Mode(true);
-    }])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('ride-plan', {
@@ -27,7 +24,6 @@ angular.module('RidePlan', [
             })
             .state('ride-plan.home', {
                 url: "/",
-                parent: 'ride-plan',
                 views: {
                     'content@': {
                         templateUrl: 'partials/home.html',
@@ -37,7 +33,6 @@ angular.module('RidePlan', [
             })
             .state('ride-plan.create', {
                 url: '/create',
-                parent: 'ride-plan',
                 views: {
                     'content@': {
                         templateUrl: 'partials/create.html',

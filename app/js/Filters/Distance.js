@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Filters')
-    .filter('Distance', function (LocationService) {
+    .filter('Distance', ['LocationService', function (LocationService) {
         return function(events, userLocation, range) {
             if(events == undefined) {
                 return [];
@@ -21,4 +21,4 @@ angular.module('RidePlan.Filters')
             }
             return eventsInRange;
         }
-    });
+    }]);

@@ -1,5 +1,10 @@
 "use strict";
 
+/**
+ * Facebook Auth Service
+ *
+ * Used to authenticate a user through Facebook and the API
+ */
 angular.module("RidePlan.Services")
     .service("FacebookAuthService", function() {
         FB.init({

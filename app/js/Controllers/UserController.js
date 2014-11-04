@@ -1,14 +1,14 @@
 "use strict";
 
 angular.module("RidePlan.Controllers")
-    .controller("UserController", function($scope, FacebookAuthService, ApiService) {
+    .controller("UserController", ['$scope', 'FacebookAuthService', 'AuthService', function($scope, FacebookAuthService, AuthService) {
         $scope.userLoggedIn = null;
 
         var handleLoginResponse = function(response) {
             if(response.status == "connected") {
                 $scope.userLoggedIn = true;
 
-                ApiService.authoriseUserAgainstApi(
+                AuthService.authoriseUserAgainstApi(
                     response.authResponse.accessToken,
                     response.authResponse.userID
                 );
@@ -32,4 +32,4 @@ angular.module("RidePlan.Controllers")
                 });
             }
         };
-    });
+    }]);

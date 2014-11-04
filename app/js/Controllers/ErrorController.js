@@ -1,6 +1,6 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller("ErrorController", function($scope, $routeParams) {
+    .controller("ErrorController", ['$scope', '$stateParams', function($scope, $stateParams) {
 
-    });
+    }]);

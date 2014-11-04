@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller("HomeController", function ($scope, $location, EventService, LocationService) {
+    .controller("HomeController", ['$scope', '$location', 'EventService', 'LocationService', function ($scope, $location, EventService, LocationService) {
         var distances = {
             0: "All",
             10: "10 miles",
@@ -78,4 +78,4 @@ angular.module('RidePlan.Controllers')
         });
 
         $scope.methods.getLocation();
-    });
+    }]);

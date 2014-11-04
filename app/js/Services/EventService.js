@@ -4,7 +4,7 @@
  * Service for Events
  */
 angular.module("RidePlan.Services")
-    .service("EventService", function($http, $q, API_URL, API_PORT, ApiService) {
+    .service("EventService", ['$http', '$q', 'API_URL', 'API_PORT', 'AuthService', function($http, $q, API_URL, API_PORT, AuthService) {
         var allEvents = [];
         var eventsLoaded = false;
 
@@ -50,7 +50,7 @@ angular.module("RidePlan.Services")
 
             $http.put(API_URL + ":" + API_PORT + '/events/create/', { data: formData },
                 { headers: {
-                    'Authorization': ApiService.getSessionCookie()
+                    'Authorization': AuthService.getSessionCookie()
                 }})
                 .success(function(data) {
                     allEvents.push(data);
@@ -82,7 +82,7 @@ angular.module("RidePlan.Services")
             } else {
                 $http.get(API_URL + ":" + API_PORT + '/events/' + id, {},
                     { headers: {
-                        'Authorization': ApiService.getSessionCookie()
+                        'Authorization': AuthService.getSessionCookie()
                     }})
                     .success(function(data) {
                         deferred.resolve(data);
@@ -113,7 +113,7 @@ angular.module("RidePlan.Services")
             } else {
                 $http.get(API_URL + ":" + API_PORT + '/events/', {},
                     { headers: {
-                        'Authorization': ApiService.getSessionCookie()
+                        'Authorization': AuthService.getSessionCookie()
                     }})
                     .success(function(data) {
                         for(var i = 0; i < data.length; i++) {
@@ -152,7 +152,7 @@ angular.module("RidePlan.Services")
                 $http.put(API_URL + ":" + API_PORT + '/events/' + eventId + '/rsvp/',
                     { rsvpBool: rsvpBool},
                     { headers: {
-                        'Authorization': ApiService.getSessionCookie()
+                        'Authorization': AuthService.getSessionCookie()
                     }})
                     .success(function(data) {
                         deferred.resolve(data);
@@ -167,4 +167,4 @@ angular.module("RidePlan.Services")
 
             return deferred.promise;
         };
-    });
+    }]);

@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller("CreateController", function ($scope, $location, $window, ApiService, EventService) {
+    .controller("CreateController", function ($scope, $location, $window, EventService) {
         var center = new google.maps.LatLng(54.5, -4.5);
 
         /**

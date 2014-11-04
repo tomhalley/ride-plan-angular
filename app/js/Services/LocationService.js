@@ -6,7 +6,7 @@
  * Used for location based things
  */
 angular.module("RidePlan.Services")
-    .service("LocationService", function ($q, $window) {
+    .service("LocationService", ['$q', '$window', function ($q, $window) {
 
         /**
          * Convert LatLng string to object
@@ -119,4 +119,4 @@ angular.module("RidePlan.Services")
 
             return deferred.promise;
         }
-    });
+    }]);

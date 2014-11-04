@@ -1,5 +1,5 @@
 angular.module("RidePlan.Services")
-    .service("ApiService", function($http, $q, API_URL, API_PORT) {
+    .service("AuthService", ['$http', '$q', 'API_URL', 'API_PORT', function($http, $q, API_URL, API_PORT) {
         var sessionCookie = null;
 
         this.getSessionCookie = function() {
@@ -27,4 +27,4 @@ angular.module("RidePlan.Services")
 
             return deferred.promise;
         };
-    });
+    }]);
