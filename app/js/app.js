@@ -26,8 +26,9 @@ angular.module('MotoNet', [
             })
             .state('ride-plan.home', {
                 url: "/",
+                parent: 'ride-plan',
                 views: {
-                    content: {
+                    'content@': {
                         templateUrl: 'partials/home.html',
                         controller: 'HomeController'
                     }
@@ -35,8 +36,9 @@ angular.module('MotoNet', [
             })
             .state('ride-plan.createEvent', {
                 url: '/create',
+                parent: 'ride-plan',
                 views: {
-                    content: {
+                    'content@': {
                         templateUrl: 'partials/create.html',
                         controller: 'CreateController'
                     }
@@ -45,7 +47,7 @@ angular.module('MotoNet', [
             .state('ride-plan.eventPage', {
                 url: '/event/:id',
                 views: {
-                    content: {
+                    'content@': {
                         templateUrl: 'partials/event.html',
                         controller: 'EventController'
                     }
@@ -54,7 +56,7 @@ angular.module('MotoNet', [
             .state('ride-plan.anyError', {
                 url: '/error',
                 views: {
-                    content: {
+                    'content@': {
                         templateUrl: 'partials/error.html',
                         controller: 'ErrorController'
                     }
@@ -63,7 +65,7 @@ angular.module('MotoNet', [
             .state('ride-plan.specificError', {
                 url: '/error/:type',
                 views: {
-                    content: {
+                    'content@': {
                         templateUrl: 'partials/error.html',
                         controller: 'ErrorController'
                     }
