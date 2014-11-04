@@ -6,7 +6,20 @@
  * Used to authenticate a user through Facebook and the API
  */
 angular.module("RidePlan.Services")
-    .service("FacebookAuthService", function() {
+    .service("FacebookAuthService", function($q) {
+        var handleLoginResponse = function(response) {
+            if(response.status == "connected") {
+                AuthService.authoriseUserAgainstApi(
+                    response.authResponse.accessToken,
+                    response.authResponse.userID
+                );
+
+                return true;
+            }
+
+            return false;
+        };
+
         FB.init({
             appId      : '1478417649072538',
             status     : true,
@@ -14,28 +27,21 @@ angular.module("RidePlan.Services")
             version    : 'v2.0'
         });
 
-        this.getLoginStatus = function(callback) {
+        this.getLoginStatus = function() {
             FB.getLoginStatus(function(response) {
-                callback(response);
+                handleLoginResponse(response);
             })
         };
 
-        this.login = function(callback) {
+        this.login = function() {
             FB.login(function(response) {
-                callback(response);
+                handleLoginResponse(response);
             }, {scope: "public_profile,email"});
         };
 
-        this.getUserDetails = function(callback) {
-            FB.api('/me', function(response) {
-                console.log(response);
-                callback(response);
-            });
-        };
-
-        this.logout = function(callback) {
+        this.logout = function() {
             FB.logout(function(response) {
-                callback();
+                handleLoginResponse(response);
             })
         }
     });

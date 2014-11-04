@@ -1,12 +1,25 @@
 <div class="modal-header">
-    <h3>Custom Header!</h3>
+    <h3>Login</h3>
 </div>
 <div class="modal-body">
-    <p>Lorem Ipsum blah blah blah</p>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn"
-            data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
-    <button class="btn btn-primary"
-            data-ng-click="modalOptions.ok();">{{modalOptions.actionButtonText}}</button>
+    <div class="row">
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-primary btn-block" ng-click="methods.loginFacebook()">Facebook</button>
+            <button type="button" class="btn btn-primary btn-block">Google</button>
+            <button type="button" class="btn btn-primary btn-block">Linkedin</button>
+        </div>
+        <div class="col-sm-6" style="border-left: 1px solid #ddd">
+            <form role="form">
+                <div class="form-group modal-login-signup">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-default btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
