@@ -5,7 +5,7 @@
  *
  * Used for location based things
  */
-angular.module("MotoNet.Services")
+angular.module("RidePlan.Services")
     .service("LocationService", function ($q, $window) {
 
         /**

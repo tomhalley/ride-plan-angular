@@ -1,5 +1,5 @@
 {
-  "name": "motonet-angular",
+  "name": "ride-plan-angular",
   "root": "./app",
   "clean_urls": true,
   "error_page": "error"

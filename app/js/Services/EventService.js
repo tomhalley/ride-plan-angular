@@ -3,8 +3,8 @@
 /**
  * Service for Events
  */
-angular.module("MotoNet.Services")
-    .service("EventService", function($http, $q, MOTONET_API_URL, MOTONET_API_PORT, ApiService) {
+angular.module("RidePlan.Services")
+    .service("EventService", function($http, $q, API_URL, API_PORT, ApiService) {
         var allEvents = [];
         var eventsLoaded = false;
 
@@ -48,7 +48,7 @@ angular.module("MotoNet.Services")
         this.saveRideout = function(formData) {
             var deferred = $q.defer();
 
-            $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/create/', { data: formData },
+            $http.put(API_URL + ":" + API_PORT + '/events/create/', { data: formData },
                 { headers: {
                     'Authorization': ApiService.getSessionCookie()
                 }})
@@ -80,7 +80,7 @@ angular.module("MotoNet.Services")
             if(event !== false) {
                 deferred.resolve(event);
             } else {
-                $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/' + id, {},
+                $http.get(API_URL + ":" + API_PORT + '/events/' + id, {},
                     { headers: {
                         'Authorization': ApiService.getSessionCookie()
                     }})
@@ -111,7 +111,7 @@ angular.module("MotoNet.Services")
             if(eventsLoaded !== false) {
                 deferred.resolve(allEvents);
             } else {
-                $http.get(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/', {},
+                $http.get(API_URL + ":" + API_PORT + '/events/', {},
                     { headers: {
                         'Authorization': ApiService.getSessionCookie()
                     }})
@@ -149,7 +149,7 @@ angular.module("MotoNet.Services")
             } else if (rsvpBool === null || rsvpBool === undefined) {
                 deferred.reject("Parameter 'rsvpBool' was undefined");
             } else {
-                $http.put(MOTONET_API_URL + ":" + MOTONET_API_PORT + '/events/' + eventId + '/rsvp/',
+                $http.put(API_URL + ":" + API_PORT + '/events/' + eventId + '/rsvp/',
                     { rsvpBool: rsvpBool},
                     { headers: {
                         'Authorization': ApiService.getSessionCookie()

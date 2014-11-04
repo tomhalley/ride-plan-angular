@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Controllers')
+angular.module('RidePlan.Controllers')
     .controller("HomeController", function ($scope, $window, $location, EventService, LocationService) {
         var distances = {
             0: "All",

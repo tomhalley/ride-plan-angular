@@ -2,12 +2,12 @@
 
 /* jasmine specs for services go here */
 
-describe('MotoNet', function() {
+describe('RidePlan', function() {
     describe('Services', function() {
         describe('LocationService', function() {
             var LocationService;
 
-            beforeEach(module('MotoNet.Services'));
+            beforeEach(module('RidePlan.Services'));
             beforeEach(inject(function (_LocationService_) {
                 LocationService = _LocationService_;
             }));

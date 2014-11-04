@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Controllers')
+angular.module('RidePlan.Controllers')
     .controller("CreateController", function ($scope, $location, $window, ApiService, EventService) {
         var center = new google.maps.LatLng(54.5, -4.5);
 

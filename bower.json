@@ -1,9 +1,8 @@
 {
-  "name": "motonet-angular",
-  "description": "Frontend Angular project for MotoNet",
+  "name": "ride-plan-angular",
+  "description": "Frontend Angular project for RidePlan",
   "version": "0.1.0",
-  "homepage": "https://bitbucket.org/tomhalley89/motonet-angular",
-  "license": "MIT",
+  "homepage": "https://github.com/tomhalley89/ride-plan-angular",
   "private": true,
   "dependencies": {
     "angular": "1.2.x",

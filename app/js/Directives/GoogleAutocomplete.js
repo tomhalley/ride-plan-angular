@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Directives')
+angular.module('RidePlan.Directives')
     .controller("GoogleAutocompleteController", function($scope, LocationService) {
         var autoComplete,
             $element;

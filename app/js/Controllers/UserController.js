@@ -1,4 +1,6 @@
-angular.module("MotoNet.Controllers")
+"use strict";
+
+angular.module("RidePlan.Controllers")
     .controller("UserController", function($scope, FacebookAuthService, ApiService) {
         $scope.userLoggedIn = null;
 

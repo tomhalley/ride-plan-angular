@@ -2,13 +2,13 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('MotoNet', [
+angular.module('RidePlan', [
     'ui.router',
-    'MotoNet.Common',
-    'MotoNet.Controllers',
-    'MotoNet.Directives',
-    'MotoNet.Filters',
-    'MotoNet.Services'
+    'RidePlan.Common',
+    'RidePlan.Controllers',
+    'RidePlan.Directives',
+    'RidePlan.Filters',
+    'RidePlan.Services'
 ])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
@@ -75,22 +75,20 @@ angular.module('MotoNet', [
         $urlRouterProvider.otherwise('/');
     })
     .run(['$rootScope', '$location', '$window', function($rootScope, $location, $window) {
-        $rootScope.$on('$stateChangeSuccess',
-            function (event) {
-                if (!$window.ga) {
-                    return;
-                }
-                $window.ga('send', 'pageview', {page: $location.path()});
+        $rootScope.$on('$stateChangeSuccess', function () {
+            if (!$window.ga) {
+                return;
             }
-        )
+            $window.ga('send', 'pageview', {page: $location.path()});
+        })
     }])
-    .constant("MOTONET_API_URL", "http://localhost")
-    .constant("MOTONET_API_PORT", 3000)
+    .constant("API_URL", "http://localhost")
+    .constant("API_PORT", 3000)
     .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
 
-angular.module("MotoNet.Common",        []);
-angular.module("MotoNet.Controllers",   ['google-maps', "ui.directives"]);
-angular.module("MotoNet.Directives",    []);
-angular.module("MotoNet.Factories",     []);
-angular.module("MotoNet.Services",      []);
-angular.module("MotoNet.Filters",       []);
+angular.module("RidePlan.Common",        []);
+angular.module("RidePlan.Controllers",   ['google-maps', "ui.directives"]);
+angular.module("RidePlan.Directives",    []);
+angular.module("RidePlan.Factories",     []);
+angular.module("RidePlan.Services",      []);
+angular.module("RidePlan.Filters",       []);

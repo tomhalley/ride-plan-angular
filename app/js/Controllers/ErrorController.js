@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Controllers')
+angular.module('RidePlan.Controllers')
     .controller("ErrorController", function($scope, $routeParams) {
 
     });

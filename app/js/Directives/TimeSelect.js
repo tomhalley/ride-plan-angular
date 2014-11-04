@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("MotoNet.Directives")
+angular.module("RidePlan.Directives")
     .directive("timeSelect", function() {
         return {
             restrict: "E",

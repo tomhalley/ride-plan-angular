@@ -1,5 +1,5 @@
-angular.module("MotoNet.Services")
-    .service("ApiService", function($http, $q, MOTONET_API_URL, MOTONET_API_PORT) {
+angular.module("RidePlan.Services")
+    .service("ApiService", function($http, $q, API_URL, API_PORT) {
         var sessionCookie = null;
 
         this.getSessionCookie = function() {
@@ -9,7 +9,7 @@ angular.module("MotoNet.Services")
         this.authoriseUserAgainstApi = function(accessToken, userId) {
             var deferred = $q.defer();
 
-            $http.post(MOTONET_API_URL + ":" + MOTONET_API_PORT + "/user/authoriseWithFacebook",  {
+            $http.post(API_URL + ":" + API_PORT + "/user/authoriseWithFacebook",  {
                 access_token: accessToken,
                 user_id: userId
             })

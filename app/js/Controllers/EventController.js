@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Controllers')
+angular.module('RidePlan.Controllers')
     .controller("EventController", function($scope, $routeParams, EventService) {
         var id = $routeParams.id,
             directionsDisplay = new google.maps.DirectionsRenderer(),

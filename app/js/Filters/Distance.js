@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Filters')
+angular.module('RidePlan.Filters')
     .filter('Distance', function (LocationService) {
         return function(events, userLocation, range) {
             if(events == undefined) {

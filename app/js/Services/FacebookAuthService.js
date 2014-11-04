@@ -1,4 +1,6 @@
-angular.module("MotoNet.Services")
+"use strict";
+
+angular.module("RidePlan.Services")
     .service("FacebookAuthService", function() {
         FB.init({
             appId      : '1478417649072538',

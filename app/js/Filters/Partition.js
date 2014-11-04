@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('MotoNet.Filters')
+angular.module('RidePlan.Filters')
     .filter('Partition', function () {
         var cache = {};
         return function (arr, size) {
