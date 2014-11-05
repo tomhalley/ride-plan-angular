@@ -15,7 +15,6 @@ angular.module("RidePlan.Services")
             })
             .success(function(data) {
                 sessionCookie = JSON.parse(data);
-                    console.log(sessionCookie);
                 deferred.resolve(data);
             })
             .error(function(data, status) {

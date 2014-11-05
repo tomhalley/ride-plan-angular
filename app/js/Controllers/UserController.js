@@ -21,10 +21,7 @@ angular.module("RidePlan.Controllers")
             }
         };
 
-        $scope.$on('facebookLoginClicked', function() {
-            FacebookAuthService.login()
-                .then(function(result) {
-                    $scope.userLoggedIn = result;
-                });
+        $scope.$on('loggedIn', function(event, result) {
+            $scope.userLoggedIn = result;
         });
     }]);
