@@ -23,6 +23,10 @@ body {
     cursor: pointer;
 }
 
+.jumbotron {
+    text-align: center;
+}
+
 #main-home-image {
     height: 400px;
     background: url('../img/home_background.jpg') no-repeat center center fixed;

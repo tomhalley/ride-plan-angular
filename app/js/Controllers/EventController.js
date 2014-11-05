@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller("EventController", function($scope, $stateParams, EventService, ErrorService) {
+    .controller("EventController", function($scope, $stateParams, EventService, ErrorService, $location) {
         var id = $stateParams.id,
             directionsDisplay = new google.maps.DirectionsRenderer(),
             directionsService = new google.maps.DirectionsService();
@@ -73,5 +73,7 @@ angular.module('RidePlan.Controllers')
                         console.error(response);
                     }
                 });
+            }, function() {
+                $location.path("error/404");
             });
     });
