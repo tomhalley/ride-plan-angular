@@ -2,12 +2,16 @@
 
 angular.module('RidePlan.Controllers')
     .controller('ModalController', function($scope, $rootScope, $modalInstance, FacebookAuthService) {
+
         $scope.methods = {
             loginFacebook: function() {
                 FacebookAuthService.login()
-                    .then(function(result) {
-                        $rootScope.$broadcast('loggedIn', result);
+                    .then(function() {
                         $modalInstance.close();
+                        $rootScope.$broadcast('loggedIn', true);
+                    }, function() {
+                        $modalInstance.close();
+                        $rootScope.$broadcast('loggedIn', false);
                     });
             },
             close: function() {

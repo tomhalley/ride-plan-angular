@@ -9,6 +9,9 @@ angular.module('RidePlan', [
     'RidePlan.Filters',
     'RidePlan.Services'
 ])
+    .constant("API_URL", "http://localhost")
+    .constant("API_PORT", 3000)
+    .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc")
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('ride-plan', {
@@ -72,9 +75,6 @@ angular.module('RidePlan', [
         $urlRouterProvider.otherwise('/');
     })
     .config(['FacebookProvider', function(FacebookProvider) {
-        /**
-         * Initialise the Facebook API
-         */
         FacebookProvider.init({
             appId      : '1478417649072538',
             status     : true,
@@ -89,10 +89,7 @@ angular.module('RidePlan', [
             }
             $window.ga('send', 'pageview', {page: $location.path()});
         })
-    }])
-    .constant("API_URL", "http://localhost")
-    .constant("API_PORT", 3000)
-    .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc");
+    }]);
 
 // Define module dependencies
 angular.module("RidePlan.Common",        []);

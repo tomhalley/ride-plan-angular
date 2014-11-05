@@ -1,5 +1,5 @@
 angular.module("RidePlan.Services")
-    .service("AuthService", ['$http', '$q', 'API_URL', 'API_PORT', function($http, $q, API_URL, API_PORT) {
+    .service("AuthService", function($http, $q, API_URL, API_PORT) {
         var sessionCookie = null;
 
         this.getSessionCookie = function() {
@@ -18,13 +18,9 @@ angular.module("RidePlan.Services")
                 deferred.resolve(data);
             })
             .error(function(data, status) {
-                switch(status) {
-                    default:
-                        deferred.reject("Unable to authorize user");
-                        break;
-                }
+                deferred.reject(data);
             });
 
             return deferred.promise;
         };
-    }]);
+    });

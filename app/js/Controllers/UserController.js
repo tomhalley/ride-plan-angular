@@ -1,12 +1,14 @@
 "use strict";
 
 angular.module("RidePlan.Controllers")
-    .controller("UserController", ['$scope', 'FacebookAuthService', 'AuthService', 'dialogs', function($scope, FacebookAuthService, AuthService, dialogs) {
+    .controller("UserController", function($scope, $rootScope, FacebookAuthService, AuthService, ErrorService, dialogs) {
         $scope.userLoggedIn = null;
 
         FacebookAuthService.getLoginStatus()
-            .then(function(result) {
-                $scope.userLoggedIn = result;
+            .then(function() {
+                $scope.userLoggedIn = true;
+            }, function() {
+                $scope.userLoggedIn = false;
             });
 
         $scope.methods = {
@@ -24,4 +26,4 @@ angular.module("RidePlan.Controllers")
         $scope.$on('loggedIn', function(event, result) {
             $scope.userLoggedIn = result;
         });
-    }]);
+    });
