@@ -6,7 +6,13 @@
  * Used to authenticate a user through Facebook and the API
  */
 angular.module("RidePlan.Services")
-    .service("FacebookAuthService", function($q) {
+    .service("FacebookAuthService", function($q, AuthService) {
+        /**
+         * Generic function for handling connecting to facebook
+         *
+         * @param response
+         * @returns {boolean}
+         */
         var handleLoginResponse = function(response) {
             if(response.status == "connected") {
                 AuthService.authoriseUserAgainstApi(
@@ -20,6 +26,9 @@ angular.module("RidePlan.Services")
             return false;
         };
 
+        /**
+         * Initialise the Facebook API
+         */
         FB.init({
             appId      : '1478417649072538',
             status     : true,
@@ -27,21 +36,48 @@ angular.module("RidePlan.Services")
             version    : 'v2.0'
         });
 
+        /**
+         * Get Facebook API login status
+         *
+         * @returns {*}
+         */
         this.getLoginStatus = function() {
+            var deferred = $q.defer();
+
             FB.getLoginStatus(function(response) {
-                handleLoginResponse(response);
-            })
+                deferred.resolve(handleLoginResponse(response));
+            });
+
+            return deferred.promise;
         };
 
+        /**
+         * Login via Facebooks API
+         *
+         * @returns {*}
+         */
         this.login = function() {
+            var deferred = $q.defer();
+
             FB.login(function(response) {
-                handleLoginResponse(response);
+                deferred.resolve(handleLoginResponse(response));
             }, {scope: "public_profile,email"});
+
+            return deferred.promise;
         };
 
+        /**
+         * Logout via Facebooks API
+         *
+         * @returns {*}
+         */
         this.logout = function() {
+            var deferred = $q.defer();
+
             FB.logout(function(response) {
-                handleLoginResponse(response);
-            })
+                deferred.resolve(true);
+            });
+
+            return deferred.promise;
         }
     });

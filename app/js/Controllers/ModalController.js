@@ -1,13 +1,10 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller('ModalController', function($scope, $modalInstance, FacebookAuthService) {
+    .controller('ModalController', function($scope, $rootScope, $modalInstance, FacebookAuthService) {
         $scope.methods = {
             loginFacebook: function() {
-                FacebookAuthService.login(handleLoginResponse);
-            },
-            open: function() {
-
+                $rootScope.$broadcast('facebookLoginClicked');
             },
             close: function() {
                 $modalInstance.close($scope.data);
