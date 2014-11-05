@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Controllers')
-    .controller("EventController", ['$scope', '$stateParams', 'EventService', function($scope, $stateParams, EventService) {
+    .controller("EventController", function($scope, $stateParams, EventService, ErrorService) {
         var id = $stateParams.id,
             directionsDisplay = new google.maps.DirectionsRenderer(),
             directionsService = new google.maps.DirectionsService();
@@ -11,6 +11,8 @@ angular.module('RidePlan.Controllers')
                 EventService.saveUserRsvp(id, status)
                     .then(function() {
                         console.log("RSVP Status updated");
+                    }, function() {
+                        ErrorService.error("Error", "Unable to update RSVP at this time");
                     });
             }
         };
@@ -72,4 +74,4 @@ angular.module('RidePlan.Controllers')
                     }
                 });
             });
-    }]);
+    });

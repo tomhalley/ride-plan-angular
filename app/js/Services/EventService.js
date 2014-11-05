@@ -159,7 +159,7 @@ angular.module("RidePlan.Services")
                     })
                     .error(function(data, status) {
                         switch(status) {
-                            default: deferred.reject("RSVP failed on event");
+                            default: deferred.reject();
                                 break;
                         }
                     });

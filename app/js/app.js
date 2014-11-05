@@ -63,7 +63,7 @@ angular.module('RidePlan', [
                 }
             })
             .state('ride-plan.specificError', {
-                url: '/error/:type',
+                url: '/error/:code',
                 views: {
                     'content@': {
                         templateUrl: 'partials/error.html',
@@ -72,7 +72,7 @@ angular.module('RidePlan', [
                 }
             });
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/error/404');
     })
     .config(['FacebookProvider', function(FacebookProvider) {
         FacebookProvider.init({
