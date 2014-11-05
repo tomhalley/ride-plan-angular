@@ -6,7 +6,7 @@
  * Used to authenticate a user through Facebook and the API
  */
 angular.module("RidePlan.Services")
-    .service("FacebookAuthService", function($q, AuthService) {
+    .service("FacebookAuthService", ['$q', 'AuthService', 'Facebook', function($q, AuthService, Facebook) {
         /**
          * Generic function for handling connecting to facebook
          *
@@ -27,16 +27,6 @@ angular.module("RidePlan.Services")
         };
 
         /**
-         * Initialise the Facebook API
-         */
-        FB.init({
-            appId      : '1478417649072538',
-            status     : true,
-            xfbml      : true,
-            version    : 'v2.0'
-        });
-
-        /**
          * Get Facebook API login status
          *
          * @returns {*}
@@ -44,7 +34,7 @@ angular.module("RidePlan.Services")
         this.getLoginStatus = function() {
             var deferred = $q.defer();
 
-            FB.getLoginStatus(function(response) {
+            Facebook.getLoginStatus(function(response) {
                 deferred.resolve(handleLoginResponse(response));
             });
 
@@ -59,7 +49,7 @@ angular.module("RidePlan.Services")
         this.login = function() {
             var deferred = $q.defer();
 
-            FB.login(function(response) {
+            Facebook.login(function(response) {
                 deferred.resolve(handleLoginResponse(response));
             }, {scope: "public_profile,email"});
 
@@ -74,10 +64,10 @@ angular.module("RidePlan.Services")
         this.logout = function() {
             var deferred = $q.defer();
 
-            FB.logout(function(response) {
+            Facebook.logout(function(response) {
                 deferred.resolve(true);
             });
 
             return deferred.promise;
         }
-    });
+    }]);

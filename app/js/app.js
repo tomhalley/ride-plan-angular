@@ -2,6 +2,7 @@
 
 angular.module('RidePlan', [
     'ui.router',
+    'facebook',
     'RidePlan.Common',
     'RidePlan.Controllers',
     'RidePlan.Directives',
@@ -70,6 +71,17 @@ angular.module('RidePlan', [
 
         $urlRouterProvider.otherwise('/');
     })
+    .config(['FacebookProvider', function(FacebookProvider) {
+        /**
+         * Initialise the Facebook API
+         */
+        FacebookProvider.init({
+            appId      : '1478417649072538',
+            status     : true,
+            xfbml      : true,
+            version    : 'v2.0'
+        });
+    }])
     .run(['$rootScope', '$location', '$window', function($rootScope, $location, $window) {
         $rootScope.$on('$stateChangeSuccess', function () {
             if (!$window.ga) {
