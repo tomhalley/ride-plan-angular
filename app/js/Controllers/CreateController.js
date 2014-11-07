@@ -55,6 +55,7 @@ angular.module('RidePlan.Controllers')
             endDate: '',
             isPrivate: false,
             origin: '',
+            originText: '',
             destination: '',
             waypoints: [],
             avoid_tolls: false,

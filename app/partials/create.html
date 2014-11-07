@@ -38,8 +38,8 @@
             <h2>Itinery</h2>
             <!--Origin-->
             <div class="form-group">
-                <label for="origin">Origin</label>
-                <google-autocomplete id="origin" class="form-control" location="formData.origin" placeholder="Origin"></google-autocomplete>
+                <label>Origin</label>
+                <google-autocomplete location-coords="formData.origin" placeholder="Origin"></google-autocomplete>
             </div>
 
             <!--Waypoints-->
@@ -48,8 +48,7 @@
                     <div class="input-group">
                         <span class="input-group-addon glyphicon glyphicon-align-justify" style="cursor: pointer"></span>
 
-                        <google-autocomplete class="form-control" location="waypoint.location" value="waypoint.locationText" placeholder="Waypoint">
-                        </google-autocomplete>
+                        <google-autocomplete location-coords="waypoint.location" location-text="waypoint.locationText" placeholder="Waypoint"></google-autocomplete>
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" ng-click="methods.removeWaypoint(waypoint)">
                                 <span class="glyphicon glyphicon-remove"></span>
@@ -61,8 +60,8 @@
 
             <!--Destination-->
             <div class="form-group">
-                <label for="destination">Destination</label>
-                <google-autocomplete id="destination" class="form-control" location="formData.destination" placeholder="Destination"></google-autocomplete>
+                <label>Destination</label>
+                <google-autocomplete id="destination" coordinates="formData.destination" placeholder="Destination"></google-autocomplete>
             </div>
 
             <!--Add Waypoint-->
