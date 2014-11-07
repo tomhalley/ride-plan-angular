@@ -25,12 +25,14 @@ body {
 
 .jumbotron {
     text-align: center;
+    color: #fff;
+    background: url('../img/home_background.jpg') no-repeat top center fixed;
+    text-shadow: 2px 0 0 #555, -2px 0 0 #555, 0 2px 0 #555, 0 -2px 0 #555, 1px 1px #555, -1px -1px 0 #555, 1px -1px 0 #555, -1px 1px 0 #555;
 }
 
 #main-home-image {
     height: 400px;
     background: url('../img/home_background.jpg') no-repeat center center fixed;
-    background-size: cover;
 }
 
 #main-home-image #blurb-background {

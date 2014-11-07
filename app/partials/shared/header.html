@@ -15,8 +15,8 @@
             </ul>
             <div>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="" ng-click="methods.login()" ng-show="!userLoggedIn">Login</a></li>
-                    <li><a href="" ng-click="methods.logout()" ng-show="userLoggedIn">Logout</a></li>
+                    <li><a href="" ng-click="methods.login()" ng-show="userLoggedIn === false">Login</a></li>
+                    <li><a href="" ng-click="methods.logout()" ng-show="userLoggedIn === true">Logout</a></li>
                 </ul>
             </div>
         </div>

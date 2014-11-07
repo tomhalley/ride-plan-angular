@@ -8,6 +8,24 @@
 angular.module("RidePlan.Services")
     .service("LocationService", ['$q', '$window', function ($q, $window) {
 
+        var cachedLocation = null;
+
+        /**
+         * Builds a coherent string to use in the search bar
+         * @param place
+         */
+        var buildAddressFromPlace = function(place) {
+            var addressParts = place.formatted_address.split(',');
+
+            for(var i = 0; i < addressParts.length; i++) {
+                if(addressParts[i] == addressParts[i + 1]) {
+                    addressParts.splice(i, 1);
+                }
+            }
+
+            return addressParts.join(', ');
+        };
+
         /**
          * Convert LatLng string to object
          *
@@ -42,23 +60,6 @@ angular.module("RidePlan.Services")
         };
 
         /**
-         * Find nearest location/address to coordinates
-         *
-         * @param latitude
-         * @param longitude
-         * @param callback
-         */
-        this.reverseLatLongLookup = function (latitude, longitude, callback) {
-            var latLng = new google.maps.LatLng(latitude, longitude);
-            (new google.maps.Geocoder()).geocode({'latLng': latLng}, function (results, status) {
-
-                if (status == google.maps.GeocoderStatus.OK) {
-                    callback(results[1]);
-                }
-            })
-        };
-
-        /**
          * Returns bool of whether an event is in range of a location
          *
          * @param userLocation
@@ -73,7 +74,7 @@ angular.module("RidePlan.Services")
             var userLatLng = stringToLatLng(userLocation);
 
             // Origin
-            var originDistance = distanceBetweenCoords(userLatLng, stringToLatLng(event.origin));
+            var originDistance = distanceBetweenCoords(userLatLng, stringToLatLng(event.origin.location));
             if (originDistance <= range) {
                 return originDistance;
             }
@@ -99,7 +100,7 @@ angular.module("RidePlan.Services")
             var userLatLng = stringToLatLng(userLocation);
 
             for(var i = 0; i < events.length; ++i) {
-                var originLatLng = stringToLatLng(events[i].origin);
+                var originLatLng = stringToLatLng(events[i].origin.location);
                 events[i].range = distanceBetweenCoords(userLatLng, originLatLng).toFixed(1);
             }
             return events;
@@ -110,12 +111,35 @@ angular.module("RidePlan.Services")
          *
          * @returns {promise}
          */
-        this.getUserLocation = function() {
+        this.getUserLocation = function(forceRefresh) {
             var deferred = $q.defer();
 
-            $window.navigator.geolocation.getCurrentPosition(function (position) {
-                deferred.resolve(position);
-            });
+            if(cachedLocation !== null && forceRefresh !== true) {
+                deferred.resolve(cachedLocation);
+            } else {
+                $window.navigator.geolocation.getCurrentPosition(function (position) {
+                    var latLng = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude
+                    );
+
+                    var geoCoder = new google.maps.Geocoder();
+                    geoCoder.geocode({'latLng': latLng}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+
+                            cachedLocation = {
+                                location: position.coords.latitude + ',' + position.coords.longitude,
+                                locationText: buildAddressFromPlace(results[1])
+                            };
+
+                            deferred.resolve(cachedLocation);
+                        } else {
+                            deferred.reject("Unable to retrieve user location");
+                        }
+                    })
+
+                });
+            }
 
             return deferred.promise;
         }

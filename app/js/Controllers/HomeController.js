@@ -36,31 +36,21 @@ angular.module('RidePlan.Controllers')
                 $scope.data.isFindingLocation = true;
                 LocationService.getUserLocation()
                     .then(function(position) {
-                        $scope.data.currentLocation = position.coords.latitude + ',' + position.coords.longitude;
-                        LocationService.reverseLatLongLookup(
-                            position.coords.latitude,
-                            position.coords.longitude,
-                            function (result) {
-                                $scope.$broadcast("browserFoundLocation", {
-                                    placeResults: result,
-                                    position: position
-                                });
+                        $scope.data.currentLocation = position.location;
+                        $scope.data.currentLocationText = position.locationText;
 
-                                EventService.getAllRideouts()
-                                    .then(function (data) {
-                                        $scope.data.events = LocationService.updateEventRanges(data, $scope.data.currentLocation);
-                                        $scope.data.initialising = false;
-                                        $scope.data.isFindingLocation = false;
-                                    });
-                            }
-                        );
+                        EventService.getAllRideouts()
+                            .then(function (data) {
+                                $scope.data.events = LocationService.updateEventRanges(data, $scope.data.currentLocation);
+                                $scope.data.initialising = false;
+                                $scope.data.isFindingLocation = false;
+                            });
                     });
             },
             focusOnRange: function() {
                 $("#location-range").toggleClass("open");
             },
             focusOnSearch: function() {
-                console.log($scope.data.currentLocationText);
                 angular.element("#location-search").focus();
             }
         };
