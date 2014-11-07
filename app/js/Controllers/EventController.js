@@ -55,8 +55,8 @@ angular.module('RidePlan.Controllers')
                  * Initialise Google Maps
                  */
                 var directionsRequest = {
-                    origin: data.origin,
-                    destination: data.destination,
+                    origin: data.origin.location,
+                    destination: data.destination.location,
                     waypoints: data.waypoints,
                     travelMode: google.maps.TravelMode.DRIVING,
                     transitOptions: {

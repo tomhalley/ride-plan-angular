@@ -54,9 +54,14 @@ angular.module('RidePlan.Controllers')
             startDate: '',
             endDate: '',
             isPrivate: false,
-            origin: '',
-            originText: '',
-            destination: '',
+            origin: {
+                location: '',
+                locationText: ''
+            },
+            destination: {
+                location: '',
+                locationText: ''
+            },
             waypoints: [],
             avoid_tolls: false,
             avoid_highways: false
@@ -86,6 +91,8 @@ angular.module('RidePlan.Controllers')
                     return;
                 }
 
+                console.log($scope.formData);
+
                 EventService.saveRideout($scope.formData)
                     .then(function (event) {
                         $location.path("/event/" + event._id);
@@ -114,7 +121,7 @@ angular.module('RidePlan.Controllers')
          * Update Route Rendered on Map
          */
         var updateRoute = function () {
-            if ($scope.formData.origin == '' || $scope.formData.destination == '') {
+            if ($scope.formData.origin.location == '' || $scope.formData.destination.location == '') {
                 return;
             }
 
@@ -147,13 +154,13 @@ angular.module('RidePlan.Controllers')
         /**
          * FormData Watches
          */
-        $scope.$watch("formData.origin", function () {
-            directionsRequest.origin = $scope.formData.origin;
+        $scope.$watch("formData.origin.location", function () {
+            directionsRequest.origin = $scope.formData.origin.location;
             updateRoute();
         });
 
-        $scope.$watch("formData.destination", function () {
-            directionsRequest.destination = $scope.formData.destination;
+        $scope.$watch("formData.destination.location", function () {
+            directionsRequest.destination = $scope.formData.destination.location;
             updateRoute();
         });
 

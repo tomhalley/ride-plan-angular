@@ -39,7 +39,8 @@
             <!--Origin-->
             <div class="form-group">
                 <label>Origin</label>
-                <google-autocomplete location-coords="formData.origin" placeholder="Origin"></google-autocomplete>
+                <google-autocomplete location-coords="formData.origin.location" location-text="formData.origin.locationText" placeholder="Origin">
+                </google-autocomplete>
             </div>
 
             <!--Waypoints-->
@@ -61,7 +62,8 @@
             <!--Destination-->
             <div class="form-group">
                 <label>Destination</label>
-                <google-autocomplete id="destination" coordinates="formData.destination" placeholder="Destination"></google-autocomplete>
+                <google-autocomplete id="destination" location-coords="formData.destination.location" location-text="formData.destination.locationText" placeholder="Destination">
+                </google-autocomplete>
             </div>
 
             <!--Add Waypoint-->

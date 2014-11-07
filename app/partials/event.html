@@ -24,9 +24,9 @@
     <div class="row event-itinerary">
         <div class="col-lg-6">
             <ul>
-                <li>{{ data.origin }}</li>
-                <li ng-repeat="waypoint in data.waypoints">{{ waypoint.location }}</li>
-                <li>{{ data.destination }}</li>
+                <li>{{ data.origin.locationText }}</li>
+                <li ng-repeat="waypoint in data.waypoints">{{ waypoint.locationText }}</li>
+                <li>{{ data.destination.locationText }}</li>
             </ul>
         </div>
         <div class="col-lg-6">
