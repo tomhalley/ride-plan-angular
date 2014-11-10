@@ -2,7 +2,6 @@ var gulp = require('gulp'),
     w3cjs = require('gulp-w3cjs'),
     uglify = require("gulp-uglify"),
     karma = require('karma').server,
-    ngmin = require('gulp-ngmin'),
     concat = require('gulp-concat');
 
 gulp.task('w3c', function() {
