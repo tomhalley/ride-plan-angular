@@ -25,10 +25,11 @@ angular.module('RidePlan.Directives')
             controller: "GoogleAutocompleteController",
             scope: {
                 locationCoords: '=',
-                locationText: "=?"
+                locationText: '=?',
+                required: '=?'
             },
             template: '<span>' +
-                          '<input value="{{locationText}}" class="form-control" type="text"/>' +
+                          '<input value="{{locationText}}" class="form-control" type="text" ng-required="{{required}}"/>' +
                           '<input value="{{locationCoords}}" type="hidden" />' +
                       '</span>',
             link: function ($scope, element, attrs, GoogleAutocompleteController) {

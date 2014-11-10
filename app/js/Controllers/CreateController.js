@@ -91,8 +91,6 @@ angular.module('RidePlan.Controllers')
                     return;
                 }
 
-                console.log($scope.formData);
-
                 EventService.saveRideout($scope.formData)
                     .then(function (event) {
                         $location.path("/event/" + event._id);

@@ -10,7 +10,7 @@ angular.module('RidePlan.Controllers')
             rsvpUpdate: function(status) {
                 EventService.saveUserRsvp(id, status)
                     .then(function() {
-                        console.log("RSVP Status updated");
+                        ErrorService.notification("RSVP Status updated");
                     }, function() {
                         ErrorService.error("Error", "Unable to update RSVP at this time");
                     });
@@ -57,7 +57,7 @@ angular.module('RidePlan.Controllers')
                 var directionsRequest = {
                     origin: data.origin.location,
                     destination: data.destination.location,
-                    waypoints: data.waypoints,
+                    waypoints: [],
                     travelMode: google.maps.TravelMode.DRIVING,
                     transitOptions: {
                         departureTime: new Date(2014, 8, 1, 8, 0, 0),
@@ -65,6 +65,16 @@ angular.module('RidePlan.Controllers')
                     },
                     unitSystem: google.maps.UnitSystem.IMPERIAL
                 };
+
+                /**
+                 * Format waypoints for GMaps
+                 */
+                angular.forEach(data.waypoints, function(waypoint) {
+                    directionsRequest.waypoints.push({
+                        location: waypoint.location,
+                        stopover: true
+                    });
+                });
 
                 directionsService.route(directionsRequest, function (response, status) {
                     if (status === google.maps.DirectionsStatus.OK) {

@@ -3,12 +3,11 @@
         <h1>{{ event.name }}</h1>
 
     </div>
-    <div class="event-rsvp row">
-        <div class="col-xs-pull-0">
-            <p>27 Attending</p>
-            <p>10 Maybe Attending</p>
+    <div class="event-rsvp">
+        <div class="pull-left">
+            <p>{{data.rsvp.goingCount}} Attending</p>
         </div>
-        <div class="col-xs-push-0">
+        <div class="pull-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-default" ng-click="methods.rsvpUpdate(0)">
                     <span class="glyphicon glyphicon-thumbs-up"></span> Join

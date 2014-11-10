@@ -9,18 +9,18 @@
 </div>
 
 <div class="container">
-    <form role="form">
+    <form novalidate role="form">
         <div class="col-sm-6">
             <h2>Details</h2>
             <!-- Rideout Name -->
             <div class="form-group">
                 <label for="eventName">Rideout Name</label>
-                <input id="eventName" type="text" class="form-control" ng-model="formData.name" placeholder="Enter Rideout name" />
+                <input id="eventName" type="text" class="form-control" ng-model="formData.name" placeholder="Enter Rideout name" required />
             </div>
 
             <div class="form-group">
                 <label for="dateStart">Start Date/Time</label>
-                <input id="dateStart" type="text" class="form-control" ng-model="formData.startDate" placeholder="DD/MM/YYYY" />
+                <input id="dateStart" type="text" class="form-control" ng-model="formData.startDate" placeholder="DD/MM/YYYY" required />
             </div>
 
             <div class="form-group">
@@ -62,7 +62,7 @@
             <!--Destination-->
             <div class="form-group">
                 <label>Destination</label>
-                <google-autocomplete id="destination" location-coords="formData.destination.location" location-text="formData.destination.locationText" placeholder="Destination">
+                <google-autocomplete id="destination" location-coords="formData.destination.location" location-text="formData.destination.locationText" required="true" placeholder="Destination">
                 </google-autocomplete>
             </div>
 

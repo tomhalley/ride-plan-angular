@@ -112,7 +112,10 @@ body {
  * Event Page
  */
 .event-rsvp {
-    /*background-color: #ddd;*/
+    background-color: #eee;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    height: 50px;
 }
 
 .event-range {
