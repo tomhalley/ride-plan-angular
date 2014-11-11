@@ -2,8 +2,10 @@ logs/*
 !.gitkeep
 node_modules/
 bower_components/
-tmp
+tmp/
 .DS_Store
+app/js/
+app/css/styles.css
 .idea
 atlassian-ide-plugin.xml
 dist/

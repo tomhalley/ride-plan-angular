@@ -13,16 +13,18 @@ angular.module('RidePlan', [
     .constant("API_PORT", 3000)
     .constant("GOOGLE_API_KEY", "AIzaSyBWuYgeB2ELhf8YNTwwRqzDY_r3gTGVBIc")
     .config(function($stateProvider, $urlRouterProvider) {
+        var partialsPath = "partials";
+
         $stateProvider
             .state('ride-plan', {
                 abstract: true,
                 views: {
                     'header': {
-                        templateUrl: 'partials/shared/header.html',
+                        templateUrl: partialsPath + '/shared/header.html',
                         controller: "UserController"
                     },
                     'footer': {
-                        templateUrl: 'partials/shared/footer.html'
+                        templateUrl: partialsPath + '/shared/footer.html'
                     }
                 }
             })
@@ -30,7 +32,7 @@ angular.module('RidePlan', [
                 url: "/",
                 views: {
                     'content@': {
-                        templateUrl: 'partials/home.html',
+                        templateUrl: partialsPath + '/home.html',
                         controller: 'HomeController'
                     }
                 }
@@ -39,7 +41,7 @@ angular.module('RidePlan', [
                 url: '/create',
                 views: {
                     'content@': {
-                        templateUrl: 'partials/create.html',
+                        templateUrl: partialsPath + '/create.html',
                         controller: 'CreateController'
                     }
                 }
@@ -48,7 +50,7 @@ angular.module('RidePlan', [
                 url: '/event/:id',
                 views: {
                     'content@': {
-                        templateUrl: 'partials/event.html',
+                        templateUrl: partialsPath + '/event.html',
                         controller: 'EventController'
                     }
                 }
@@ -57,7 +59,7 @@ angular.module('RidePlan', [
                 url: '/error',
                 views: {
                     'content@': {
-                        templateUrl: 'partials/error.html',
+                        templateUrl: partialsPath + '/error.html',
                         controller: 'ErrorController'
                     }
                 }
@@ -66,7 +68,7 @@ angular.module('RidePlan', [
                 url: '/error/:code',
                 views: {
                     'content@': {
-                        templateUrl: 'partials/error.html',
+                        templateUrl: partialsPath + '/error.html',
                         controller: 'ErrorController'
                     }
                 }
