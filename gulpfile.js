@@ -64,7 +64,7 @@ gulp.task('build-css', function() {
 
 gulp.task('build', ['build-vendor-js', 'build-app-js', 'build-css']);
 
-gulp.task('start', ['build'], function() {
+gulp.task('start', function() {
     gulp.src('app')
         .pipe(webserver({
             port: 8000,

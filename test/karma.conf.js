@@ -36,8 +36,8 @@ module.exports = function(config){
     reporters: ['junit', 'dots', 'coverage'],
 
     coverageReporter: {
-      type : 'html',
-      dir : 'tmp/coverage/'
+      type: 'html',
+      dir: 'tmp/coverage/'
     },
 
     junitReporter : {
