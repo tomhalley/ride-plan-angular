@@ -4,14 +4,14 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-        'app/bower_components/angular/angular.js',
+        'bower_components/angular/angular.js',
         'http://maps.googleapis.com/maps/api/js?sensor=false&language=en',
-        'app/bower_components/angular-mocks/angular-mocks.js',
-        'app/bower_components/angular-route/angular-route.js',
-        'app/bower_components/lodash/dist/lodash.underscore.js',
-        'app/bower_components/angular-google-maps/dist/angular-google-maps.min.js',
-        'app/js/app.js',
-        'app/js/**/*.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'bower_components/angular-route/angular-route.js',
+        'bower_components/lodash/dist/lodash.underscore.js',
+        'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+        'src/app.js',
+        'src/**/*.js',
         'test/unit/**/*.js'
     ],
 
