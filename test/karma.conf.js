@@ -10,8 +10,8 @@ module.exports = function(config){
         'lib/angular-route/angular-route.js',
         'lib/lodash/dist/lodash.underscore.js',
         'lib/angular-google-maps/dist/angular-google-maps.min.js',
-        'src/app.js',
-        'src/**/*.js',
+        'src/js/app.js',
+        'src/js/**/*.js',
         'test/unit/**/*.js'
     ],
 
