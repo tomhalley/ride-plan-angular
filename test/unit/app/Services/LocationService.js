@@ -8,8 +8,7 @@ var google =
 describe('RidePlan', function() {
     describe('Services', function() {
         describe('LocationService', function() {
-            var LocationService,
-                mockGoogle;
+            var LocationService;
 
             beforeEach(module('RidePlan.Services'));
             beforeEach(inject(function (_LocationService_) {
@@ -22,7 +21,7 @@ describe('RidePlan', function() {
 
             describe("reverseLatLongLookup", function () {
                 it("should expect a string on return", inject(function() {
-
+                    //expect(true).toBe(false);
                 }));
             });
 

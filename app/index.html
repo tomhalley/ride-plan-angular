@@ -9,27 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Tom Halley">
-
     <title>RidePlan</title>
 
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
 
 <body>
-    <header ui-view="header"></header>
-    <main ui-view="content"></main>
-    <footer ui-view="footer"></footer>
+    <header data-ui-view="header"></header>
+    <main data-ui-view="content"></main>
+    <footer data-ui-view="footer"></footer>
 
     <div id="fb-root"></div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    <!-- In production use:
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-    -->
-    <script src='//maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBJpeSIra45pbfmYOtpFkDCd3x7h-h3hT4&sensor=false&v=3.exp'></script>
+    <script src="//maps.googleapis.com/maps/api/js?libraries=places&amp;key=AIzaSyBJpeSIra45pbfmYOtpFkDCd3x7h-h3hT4&amp;sensor=false&amp;v=3.exp"></script>
     <script src="js/vendor.js"></script>
     <script src="js/ride-plan.js"></script>
 </body>

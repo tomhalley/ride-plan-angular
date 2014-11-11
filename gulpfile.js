@@ -41,7 +41,7 @@ gulp.task('build-vendor-js', function() {
     gulp.src(js_vendor_files, {base: 'bower_components/'})
         .pipe(concat("vendor.js"))
         .pipe(uglify())
-        .pipe(size({title: "Vendor js - compressed"}))
+        .pipe(size({showFiles: true}))
         .pipe(gulp.dest('app/js/'));
 });
 
@@ -50,7 +50,7 @@ gulp.task('build-app-js', function() {
         .pipe(concat("ride-plan.js"))
         .pipe(ng_annotate())
         .pipe(uglify({mangle: false}))
-        .pipe(size({title: "App js - compressed"}))
+        .pipe(size({showFiles: true}))
         .pipe(gulp.dest('app/js/'));
 });
 
@@ -58,7 +58,7 @@ gulp.task('build-css', function() {
     gulp.src(css_vendor_files)
         .pipe(concat("styles.css"))
         .pipe(minifycss())
-        .pipe(size({title: "CSS - compressed"}))
+        .pipe(size({showFiles: true}))
         .pipe(gulp.dest('app/css/'));
 });
 

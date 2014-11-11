@@ -19,19 +19,30 @@ module.exports = function(config){
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome'],
+    browsers : ['Chrome', 'Firefox'],
 
     plugins : [
         'karma-chrome-launcher',
         'karma-firefox-launcher',
         'karma-jasmine',
-        'karma-junit-reporter'
+        'karma-junit-reporter',
+        'karma-coverage'
     ],
 
+    preprocessors: {
+      'src/**/*.js': 'coverage'
+    },
+
+    reporters: ['junit', 'dots', 'coverage'],
+
+    coverageReporter: {
+      type : 'html',
+      dir : 'tmp/coverage/'
+    },
+
     junitReporter : {
-      outputFile: 'test_out/unit.xml',
+      outputFile: 'tmp/junit/unit.xml',
       suite: 'unit'
     }
-
   });
 };

@@ -1,11 +1,9 @@
-logs/*
-!.gitkeep
-node_modules/
-bower_components/
-tmp/
+.idea
 .DS_Store
+!.gitkeep
+atlassian-ide-plugin.xml
 app/js/
 app/css/styles.css
-.idea
-atlassian-ide-plugin.xml
-dist/
+bower_components/
+node_modules/
+tmp/
