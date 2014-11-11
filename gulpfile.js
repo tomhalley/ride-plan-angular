@@ -60,17 +60,17 @@ gulp.task('compile index.html', function () {
 });
 
 gulp.task('move partials/', function() {
-    gulp.src('src/partials/**/*.html')
+    return gulp.src('src/partials/**/*.html')
         .pipe(gulp.dest('app/partials/'));
 });
 
 gulp.task('move img/', function() {
-    gulp.src('src/img/**/*')
+    return gulp.src('src/img/**/*')
         .pipe(gulp.dest('app/img/'));
 });
 
 gulp.task('build app.js', function() {
-    gulp.src(js_files)
+    return gulp.src(js_files)
         .pipe(concat("app.js"))
         .pipe(ng_annotate())
         .pipe(uglify({mangle: false}))
@@ -82,7 +82,7 @@ gulp.task('build app.js', function() {
 });
 
 gulp.task('build styles.css', function() {
-    gulp.src(css_files)
+    return gulp.src(css_files)
         .pipe(concat("styles.css"))
         .pipe(minifycss())
         .pipe(size({showFiles: true}))
@@ -90,7 +90,7 @@ gulp.task('build styles.css', function() {
 });
 
 gulp.task('build', function() {
-    run_sequence(
+    return run_sequence(
         'install',
         ['build app.js', 'build styles.css'],
         ['move partials/', 'move img/'],
@@ -98,7 +98,7 @@ gulp.task('build', function() {
 });
 
 gulp.task('start', function() {
-    gulp.src('app')
+    return gulp.src('app')
         .pipe(webserver({
             port: 8000,
             fallback: 'index.html',
@@ -107,12 +107,12 @@ gulp.task('start', function() {
 });
 
 gulp.task('w3c', function() {
-    gulp.src('app/*.html')
+    return gulp.src('app/*.html')
         .pipe(w3cjs());
 });
 
 gulp.task('test', ['w3c'], function() {
-    karma.start({
+    return karma.start({
         configFile: __dirname + '/test/karma.conf.js',
         singleRun: true
     });

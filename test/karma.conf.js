@@ -1,8 +1,7 @@
 module.exports = function(config){
   config.set({
-
     basePath : '../',
-
+    autoWatch : true,
     files : [
         'lib/angular/angular.js',
         'http://maps.googleapis.com/maps/api/js?sensor=false&language=en',
@@ -14,13 +13,8 @@ module.exports = function(config){
         'src/js/**/*.js',
         'test/unit/**/*.js'
     ],
-
-    autoWatch : true,
-
     frameworks: ['jasmine'],
-
     browsers : ['Chrome', 'Firefox'],
-
     plugins : [
         'karma-chrome-launcher',
         'karma-firefox-launcher',
@@ -28,18 +22,14 @@ module.exports = function(config){
         'karma-junit-reporter',
         'karma-coverage'
     ],
-
-    preprocessors: {
+    reporters: ['junit', 'dots', 'coverage'],
+      preprocessors: {
       'src/**/*.js': 'coverage'
     },
-
-    reporters: ['junit', 'dots', 'coverage'],
-
     coverageReporter: {
       type: 'html',
       dir: 'tmp/coverage/'
     },
-
     junitReporter : {
       outputFile: 'tmp/junit/unit.xml',
       suite: 'unit'
