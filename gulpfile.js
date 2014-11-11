@@ -12,8 +12,10 @@ var gulp = require('gulp'),
 
 var js_vendor_files = [
     "lib/jquery/dist/jquery.min.js",
-    "lib/jquery-ui/jquery-ui.min.js",
-    "lib/jquery-ui/ui/sortable.js",
+    "lib/jquery-ui/ui/minified/core.min.js",
+    "lib/jquery-ui/ui/minified/widget.min.js",
+    "lib/jquery-ui/ui/minified/mouse.min.js",
+    "lib/jquery-ui/ui/minified/sortable.min.js",
     "lib/angular/angular.min.js",
     "lib/angular-facebook/lib/angular-facebook.js",
     "lib/angular-translate/angular-translate.min.js",
