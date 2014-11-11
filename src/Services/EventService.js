@@ -4,7 +4,7 @@
  * Service for Events
  */
 angular.module("RidePlan.Services")
-    .service("EventService", ['$http', '$q', 'API_URL', 'API_PORT', 'AuthService', function($http, $q, API_URL, API_PORT, AuthService) {
+    .service("EventService", function($http, $q, API_URL, API_PORT, AuthService) {
         var allEvents = [];
         var eventsLoaded = false;
 
@@ -167,4 +167,4 @@ angular.module("RidePlan.Services")
 
             return deferred.promise;
         };
-    }]);
+    });

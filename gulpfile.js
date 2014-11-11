@@ -6,7 +6,6 @@ var gulp = require('gulp'),
     webserver = require('gulp-webserver'),
     ng_annotate = require('gulp-ng-annotate'),
     minifycss = require('gulp-minify-css'),
-    changed = require('gulp-changed'),
     bower = require('gulp-bower'),
     size = require('gulp-size');
 

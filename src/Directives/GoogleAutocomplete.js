@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('RidePlan.Directives')
-    .controller("GoogleAutocompleteController", ['$scope', function($scope) {
+    .controller("GoogleAutocompleteController", function($scope) {
         var autoComplete;
 
         this.init = function(element) {
@@ -17,7 +17,7 @@ angular.module('RidePlan.Directives')
                 }
             });
         };
-    }])
+    })
     .directive('googleAutocomplete', function () {
         return {
             restrict: 'E',

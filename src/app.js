@@ -76,22 +76,22 @@ angular.module('RidePlan', [
 
         $urlRouterProvider.otherwise('/error/404');
     })
-    .config(['FacebookProvider', function(FacebookProvider) {
+    .config(function(FacebookProvider) {
         FacebookProvider.init({
             appId      : '1478417649072538',
             status     : true,
             xfbml      : true,
             version    : 'v2.0'
         });
-    }])
-    .run(['$rootScope', '$location', '$window', function($rootScope, $location, $window) {
+    })
+    .run(function($rootScope, $location, $window) {
         $rootScope.$on('$stateChangeSuccess', function () {
             if (!$window.ga) {
                 return;
             }
             $window.ga('send', 'pageview', {page: $location.path()});
         })
-    }]);
+    });
 
 // Define module dependencies
 angular.module("RidePlan.Common",        []);
