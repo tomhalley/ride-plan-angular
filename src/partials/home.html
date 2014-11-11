@@ -1,0 +1,43 @@
+<div class="jumbotron">
+    <div class="container">
+        <h1>RidePlan</h1>
+        <p>Find a Rideout near you or create a Rideout to share with your friends and the community!</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row" id="search-bar">
+        <div class="col-lg-6">
+            <div class="input-group" role="search">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="methods.getLocation()">
+                        <span class="glyphicon glyphicon-screenshot"></span>
+                    </button>
+                </span>
+                <google-autocomplete id="location-search" location-coords="data.currentLocation" location-text="data.currentLocationText" placeholder="Location" ng-disabled="data.isFindingLocation">
+                </google-autocomplete>
+                <div class="input-group-btn dropdown">
+                    <button id="location-range" class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
+                        {{ data.selectedDistanceString }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                        <li ng-repeat="(distance, text) in data.distances"><a style="cursor: pointer" ng-click="methods.selectDistance(distance)">{{ text }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="events" class="container" ng-class="data.initialising ? 'loading' : ''">
+    <div id="no-events" ng-show="filtered.length == 0 && data.initialising == false">
+        <p>No rideouts found within <a ng-click="methods.focusOnRange()">{{ data.selectedDistance }} miles</a> of <a ng-click="methods.focusOnSearch()">{{ data.currentLocationText }}</a></p>
+    </div>
+    <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3 | orderBy: 'range' : false">
+        <a ui-sref="ride-plan.event({ id: event._id })" class="col-md-4 event-block" ng-repeat="event in row">
+            <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
+            <h4>{{ event.name }}</h4>
+            <p class="event-range">{{ event.range }} miles away</p>
+        </a>
+    </div>
+</div>

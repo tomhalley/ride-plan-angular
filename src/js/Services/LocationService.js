@@ -6,7 +6,7 @@
  * Used for location based things
  */
 angular.module("RidePlan.Services")
-    .service("LocationService", ['$q', '$window', function ($q, $window) {
+    .service("LocationService", function ($q, $window) {
 
         var cachedLocation = null;
 
@@ -143,4 +143,4 @@ angular.module("RidePlan.Services")
 
             return deferred.promise;
         }
-    }]);
+    });

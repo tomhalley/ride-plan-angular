@@ -2,8 +2,7 @@
 .DS_Store
 !.gitkeep
 atlassian-ide-plugin.xml
-app/js/
-app/css/styles.css
+app/
 tmp/
 node_modules/
 lib/

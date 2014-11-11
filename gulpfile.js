@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
     w3cjs = require('gulp-w3cjs'),
     uglify = require("gulp-uglify"),
     karma = require('karma').server,
@@ -7,9 +8,13 @@ var gulp = require('gulp'),
     ng_annotate = require('gulp-ng-annotate'),
     minifycss = require('gulp-minify-css'),
     bower = require('gulp-bower'),
-    size = require('gulp-size');
+    size = require('gulp-size'),
+    rev = require('gulp-rev'),
+    handlebars = require('gulp-compile-handlebars'),
+    rename = require('gulp-rename'),
+    run_sequence = require('run-sequence');
 
-var js_vendor_files = [
+var js_files = [
     "lib/jquery/dist/jquery.min.js",
     "lib/jquery-ui/ui/minified/core.min.js",
     "lib/jquery-ui/ui/minified/widget.min.js",
@@ -24,13 +29,14 @@ var js_vendor_files = [
     "lib/angular-ui-router/release/angular-ui-router.min.js",
     "lib/angular-ui/build/angular-ui.min.js",
     "lib/angular-dialogs-service/dialogs.min.js",
-    "lib/angular-sanitize/angular-sanitize.min.js"
+    "lib/angular-sanitize/angular-sanitize.min.js",
+    'src/js/**/*.js'
 ];
 
-var css_vendor_files = [
+var css_files = [
     "lib/bootstrap/dist/css/bootstrap.min.css",
     "lib/angular-dialogs-service/dialogs.min.css",
-    "app/css/app.css"
+    "src/css/app.css"
 ];
 
 gulp.task('install', function() {
@@ -38,32 +44,58 @@ gulp.task('install', function() {
         .pipe(gulp.dest('lib/'));
 });
 
-gulp.task('build-vendor-js', function() {
-    gulp.src(js_vendor_files, {base: 'bower_components/'})
-        .pipe(concat("vendor.js"))
-        .pipe(uglify())
-        .pipe(size({showFiles: true}))
-        .pipe(gulp.dest('app/js/'));
+gulp.task('compile index.html', function () {
+    var manifest = JSON.parse(fs.readFileSync('tmp/assets/rev-manifest.json', 'utf8'));
+
+    return gulp.src('src/index.html')
+        .pipe(handlebars(manifest, {
+            helpers: {
+                assetPath: function (path, context) {
+                    return ['js', context.data.root[path]].join('/');
+                }
+            }
+        }))
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('app/'));
 });
 
-gulp.task('build-app-js', function() {
-    gulp.src('src/**/*.js')
-        .pipe(concat("ride-plan.js"))
+gulp.task('move partials/', function() {
+    gulp.src('src/partials/**/*.html')
+        .pipe(gulp.dest('app/partials/'));
+});
+
+gulp.task('move img/', function() {
+    gulp.src('src/img/**/*')
+        .pipe(gulp.dest('app/img/'));
+});
+
+gulp.task('build app.js', function() {
+    gulp.src(js_files)
+        .pipe(concat("app.js"))
         .pipe(ng_annotate())
         .pipe(uglify({mangle: false}))
+        .pipe(rev())
         .pipe(size({showFiles: true}))
-        .pipe(gulp.dest('app/js/'));
+        .pipe(gulp.dest('app/js/'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('tmp/assets/'));
 });
 
-gulp.task('build-css', function() {
-    gulp.src(css_vendor_files)
+gulp.task('build styles.css', function() {
+    gulp.src(css_files)
         .pipe(concat("styles.css"))
         .pipe(minifycss())
         .pipe(size({showFiles: true}))
         .pipe(gulp.dest('app/css/'));
 });
 
-gulp.task('build', ['build-vendor-js', 'build-app-js', 'build-css']);
+gulp.task('build', function() {
+    run_sequence(
+        'install',
+        ['build app.js', 'build styles.css'],
+        ['move partials/', 'move img/'],
+        'compile index.html');
+});
 
 gulp.task('start', function() {
     gulp.src('app')
