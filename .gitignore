@@ -4,7 +4,6 @@
 atlassian-ide-plugin.xml
 app/js/
 app/css/styles.css
-bower_components/
 tmp/
 node_modules/
 lib/
