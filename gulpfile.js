@@ -12,7 +12,9 @@ var gulp = require('gulp'),
     rev = require('gulp-rev'),
     handlebars = require('gulp-compile-handlebars'),
     rename = require('gulp-rename'),
-    run_sequence = require('run-sequence');
+    run_sequence = require('run-sequence'),
+    imagemin = require('gulp-imagemin'),
+    jpegtran = require('imagemin-jpegtran');
 
 var js_files = [
     "lib/jquery/dist/jquery.min.js",
@@ -64,8 +66,12 @@ gulp.task('move partials/', function() {
         .pipe(gulp.dest('app/partials/'));
 });
 
-gulp.task('move img/', function() {
-    return gulp.src('src/img/**/*')
+gulp.task('compress jpgs', function() {
+    return gulp.src('src/img/*.jpg')
+        .pipe(imagemin({
+            progressive: true,
+            use: [jpegtran()]
+        }))
         .pipe(gulp.dest('app/img/'));
 });
 
@@ -93,7 +99,7 @@ gulp.task('build', function() {
     return run_sequence(
         'install',
         ['build app.js', 'build styles.css'],
-        ['move partials/', 'move img/'],
+        ['move partials/', 'compress jpgs'],
         'compile index.html');
 });
 
