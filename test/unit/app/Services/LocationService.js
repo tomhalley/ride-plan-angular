@@ -1,8 +1,5 @@
 'use strict';
 
-var google =
-
-
 /* jasmine specs for services go here */
 
 describe('RidePlan', function() {

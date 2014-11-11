@@ -11,30 +11,30 @@ var gulp = require('gulp'),
     size = require('gulp-size');
 
 var js_vendor_files = [
-    "bower_components/jquery/dist/jquery.min.js",
-    "bower_components/jquery-ui/jquery-ui.min.js",
-    "bower_components/jquery-ui/ui/sortable.js",
-    "bower_components/angular/angular.min.js",
-    "bower_components/angular-facebook/lib/angular-facebook.js",
-    "bower_components/angular-translate/angular-translate.min.js",
-    "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
-    'bower_components/lodash/dist/lodash.underscore.min.js',
-    'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
-    "bower_components/angular-ui-router/release/angular-ui-router.min.js",
-    "bower_components/angular-ui/build/angular-ui.min.js",
-    "bower_components/angular-dialogs-service/dialogs.min.js",
-    "bower_components/angular-sanitize/angular-sanitize.min.js"
+    "lib/jquery/dist/jquery.min.js",
+    "lib/jquery-ui/jquery-ui.min.js",
+    "lib/jquery-ui/ui/sortable.js",
+    "lib/angular/angular.min.js",
+    "lib/angular-facebook/lib/angular-facebook.js",
+    "lib/angular-translate/angular-translate.min.js",
+    "lib/angular-bootstrap/ui-bootstrap-tpls.min.js",
+    'lib/lodash/dist/lodash.underscore.min.js',
+    'lib/angular-google-maps/dist/angular-google-maps.min.js',
+    "lib/angular-ui-router/release/angular-ui-router.min.js",
+    "lib/angular-ui/build/angular-ui.min.js",
+    "lib/angular-dialogs-service/dialogs.min.js",
+    "lib/angular-sanitize/angular-sanitize.min.js"
 ];
 
 var css_vendor_files = [
-    "bower_components/bootstrap/dist/css/bootstrap.min.css",
-    "bower_components/angular-dialogs-service/dialogs.min.css",
+    "lib/bootstrap/dist/css/bootstrap.min.css",
+    "lib/angular-dialogs-service/dialogs.min.css",
     "app/css/app.css"
 ];
 
 gulp.task('install', function() {
-    return bower()
-        .pipe(gulp.dest('bower_components/'));
+    return bower('lib/')
+        .pipe(gulp.dest('lib/'));
 });
 
 gulp.task('build-vendor-js', function() {
