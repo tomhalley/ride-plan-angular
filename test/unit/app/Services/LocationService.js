@@ -22,7 +22,15 @@ describe('RidePlan', function() {
 
             describe("#isEventInRange", function () {
 
-            })
+            });
+
+            describe('#updateEventRanges', function() {
+
+            });
+
+            describe('#getUserLocation', function() {
+
+            });
         });
     })
 });
