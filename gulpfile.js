@@ -117,9 +117,13 @@ gulp.task('w3c', function() {
         .pipe(w3cjs());
 });
 
-gulp.task('test', ['w3c'], function() {
+gulp.task('run-karma', function() {
     return karma.start({
         configFile: __dirname + '/test/karma.conf.js',
         singleRun: true
     });
+});
+
+gulp.task('test', function() {
+    return run_sequence('build', 'w3c', 'run-karma');
 });

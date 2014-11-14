@@ -13,16 +13,14 @@ describe('RidePlan', function() {
             }));
 
             it('should exist', inject(function() {
-                expect(LocationService).toBeDefined();
+                should.exist(LocationService);
             }));
 
-            describe("reverseLatLongLookup", function () {
-                it("should expect a string on return", inject(function() {
-                    //expect(true).toBe(false);
-                }));
+            describe("#reverseLatLongLookup", function () {
+                it("should expect a string on return");
             });
 
-            describe("isEventInRange", function () {
+            describe("#isEventInRange", function () {
 
             })
         });
