@@ -51,9 +51,9 @@ angular.module('RidePlan.Controllers')
         $scope.formData = {
             error: false,
             name: '',
-            startDate: '',
-            endDate: '',
-            isPrivate: false,
+            start_date: '',
+            end_date: '',
+            is_private: false,
             origin: {
                 location: '',
                 locationText: ''

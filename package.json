@@ -31,7 +31,8 @@
     "ng-annotate": "^0.12.1",
     "protractor": "^0.20.1",
     "run-sequence": "^1.0.1",
-    "shelljs": "^0.2.6"
+    "shelljs": "^0.2.6",
+    "gulp-watch": "~1.2.0"
   },
   "dependencies": {
     "mime": "^1.2.11",

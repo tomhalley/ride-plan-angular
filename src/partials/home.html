@@ -35,7 +35,7 @@
     </div>
     <div class="row" ng-repeat="row in filtered = (data.events | Distance: data.currentLocation: data.selectedDistance) | Partition: 3 | orderBy: 'range' : false">
         <a ui-sref="ride-plan.event({ id: event._id })" class="col-md-4 event-block" ng-repeat="event in row">
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center=United Kingdom&zoom=4&size=275x225">
+            <img src="" width="275" height="275">
             <h4>{{ event.name }}</h4>
             <p class="event-range">{{ event.range }} miles away</p>
         </a>
